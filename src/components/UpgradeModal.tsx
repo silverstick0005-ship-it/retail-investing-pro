@@ -9,7 +9,7 @@ interface UpgradeModalProps {
 export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) => {
   const [selectedPlan, setSelectedPlan] = useState<'PRO' | 'PRO_PLUS' | null>(null);
   const [billingCycle, setBillingCycle] = useState<'MONTHLY' | 'ANNUAL'>('MONTHLY');
-  const [paymentMethod, setPaymentMethod] = useState<'DEBIT_CREDIT_CARD' | 'UPI_QR' | 'BANK_TRANSFER' | 'GATEWAY_LINK'>('UPI_QR');
+  const [paymentMethod, setPaymentMethod] = useState<'UPI_QR' | 'DEBIT_CREDIT_CARD'>('UPI_QR');
   const [currency, setCurrency] = useState<'INR' | 'USD'>('INR');
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [transactionId, setTransactionId] = useState('');
@@ -33,7 +33,6 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
     accountHolder: 'Retail Investing PRO',
     supportEmail: 'silverstick0005@gmail.com',
     supportWhatsApp: '+91 8617793775',
-    stripeOrRazorpayUrl: 'https://rzp.io/l/retailinvesting',
   };
 
   if (!isOpen) return null;
@@ -354,7 +353,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
             </div>
 
             {/* Payment Method Selector Tabs */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-[#121212] p-1.5 rounded-2xl border border-white/5">
+            <div className="grid grid-cols-2 gap-2 bg-[#121212] p-1.5 rounded-2xl border border-white/5">
               <button
                 onClick={() => setPaymentMethod('UPI_QR')}
                 className={`py-2.5 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
@@ -377,30 +376,6 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
               >
                 <CreditCard className="w-4 h-4 shrink-0" />
                 <span className="truncate">Debit / Credit Card</span>
-              </button>
-
-              <button
-                onClick={() => setPaymentMethod('BANK_TRANSFER')}
-                className={`py-2.5 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
-                  paymentMethod === 'BANK_TRANSFER'
-                    ? 'bg-[#d4af37] text-black shadow'
-                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Building2 className="w-4 h-4 shrink-0" />
-                <span className="truncate">Bank Transfer</span>
-              </button>
-
-              <button
-                onClick={() => setPaymentMethod('GATEWAY_LINK')}
-                className={`py-2.5 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
-                  paymentMethod === 'GATEWAY_LINK'
-                    ? 'bg-[#d4af37] text-black shadow'
-                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Sparkles className="w-4 h-4 shrink-0" />
-                <span className="truncate">Razorpay / Stripe</span>
               </button>
             </div>
 
@@ -663,120 +638,6 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
                       <span>Encrypted with bank-grade AES-256 cipher</span>
                     </div>
                   </form>
-                </div>
-              </div>
-            )}
-
-            {/* TAB 3: DIRECT BANK TRANSFER */}
-            {paymentMethod === 'BANK_TRANSFER' && (
-              <div className="bg-[#141414] border border-white/10 rounded-2xl p-5 space-y-4">
-                <div>
-                  <h4 className="text-base font-bold text-white">Direct Bank Wire / NEFT / IMPS Transfer</h4>
-                  <p className="text-xs text-zinc-400 mt-0.5">
-                    Transfer directly to our corporate bank account via your net banking or mobile banking app.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                  <div className="bg-black/50 border border-white/10 rounded-xl p-3 flex justify-between items-center">
-                    <div>
-                      <div className="text-[10px] text-zinc-500 uppercase">Account Name</div>
-                      <div className="font-bold text-white">{paymentConfig.accountHolder}</div>
-                    </div>
-                    <button onClick={() => handleCopy(paymentConfig.accountHolder, 'holder')} className="text-zinc-400 hover:text-white p-1">
-                      {copiedField === 'holder' ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </div>
-
-                  <div className="bg-black/50 border border-white/10 rounded-xl p-3 flex justify-between items-center">
-                    <div>
-                      <div className="text-[10px] text-zinc-500 uppercase">Account Number</div>
-                      <div className="font-bold text-white font-mono-code">{paymentConfig.accountNumber}</div>
-                    </div>
-                    <button onClick={() => handleCopy(paymentConfig.accountNumber, 'acc')} className="text-zinc-400 hover:text-white p-1">
-                      {copiedField === 'acc' ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </div>
-
-                  <div className="bg-black/50 border border-white/10 rounded-xl p-3 flex justify-between items-center">
-                    <div>
-                      <div className="text-[10px] text-zinc-500 uppercase">IFSC Code</div>
-                      <div className="font-bold text-white font-mono-code">{paymentConfig.ifscCode}</div>
-                    </div>
-                    <button onClick={() => handleCopy(paymentConfig.ifscCode, 'ifsc')} className="text-zinc-400 hover:text-white p-1">
-                      {copiedField === 'ifsc' ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </div>
-
-                  <div className="bg-black/50 border border-white/10 rounded-xl p-3 flex justify-between items-center">
-                    <div>
-                      <div className="text-[10px] text-zinc-500 uppercase">Bank & Branch</div>
-                      <div className="font-bold text-white">{paymentConfig.bankName}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2 pt-1 border-t border-white/5">
-                  <label className="text-xs text-zinc-300 font-medium">
-                    Enter Bank UTR / Reference Number:
-                  </label>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      placeholder="e.g. HDFC000984729104"
-                      value={transactionId}
-                      onChange={(e) => setTransactionId(e.target.value)}
-                      className="flex-1 bg-black/60 border border-white/15 rounded-xl px-3 py-2 text-xs text-white font-mono-code focus:outline-none focus:border-[#d4af37]"
-                    />
-                    <button
-                      onClick={() => {
-                        if (transactionId.trim()) {
-                          setIsSuccessSubmitted(true);
-                        } else {
-                          alert('Please enter your Bank UTR reference number.');
-                        }
-                      }}
-                      className="bg-[#d4af37] hover:bg-[#e5bd43] text-black font-bold text-xs px-4 py-2 rounded-xl whitespace-nowrap"
-                    >
-                      Submit Transfer Ref
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* TAB 4: EXTERNAL RAZORPAY / STRIPE GATEWAY LINK */}
-            {paymentMethod === 'GATEWAY_LINK' && (
-              <div className="bg-[#141414] border border-white/10 rounded-2xl p-5 space-y-4">
-                <div>
-                  <h4 className="text-base font-bold text-white">Online Payment Gateway (Razorpay / Stripe)</h4>
-                  <p className="text-xs text-zinc-400 mt-0.5">
-                    Pay securely using external hosted checkout link supporting Apple Pay, Google Pay, NetBanking, and International cards.
-                  </p>
-                </div>
-
-                <div className="bg-black/50 border border-white/10 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div>
-                    <div className="text-xs text-zinc-400">Total Subscription Fee:</div>
-                    <div className="text-2xl font-bold font-mono-code text-white mt-0.5">
-                      {currentPrice?.amount}
-                    </div>
-                    <div className="text-[10px] text-zinc-500">Includes all taxes & 256-bit SSL protection</div>
-                  </div>
-
-                  <a
-                    href={paymentConfig.stripeOrRazorpayUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      setTimeout(() => setIsSuccessSubmitted(true), 3000);
-                    }}
-                    className="w-full sm:w-auto bg-gradient-to-r from-[#d4af37] to-[#f59e0b] hover:from-[#e5bd43] hover:to-[#fbbf24] text-black font-extrabold px-6 py-3 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#d4af37]/20 transition-transform hover:scale-105"
-                  >
-                    <Sparkles className="w-4 h-4" />
-                    <span>Open Razorpay / Stripe Gateway</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
                 </div>
               </div>
             )}
