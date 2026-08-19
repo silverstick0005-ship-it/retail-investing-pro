@@ -256,16 +256,77 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>PRO Active</span>
               </div>
             ) : (
-              <button
-                onClick={onOpenUpgradeModal}
-                className="bg-gradient-to-r from-[#d4af37] to-[#f59e0b] hover:from-[#e5bd43] hover:to-[#fbbf24] text-black font-extrabold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-lg shadow-[#d4af37]/20 transition-transform hover:scale-105"
-              >
-                <Crown className="w-3.5 h-3.5 fill-black" />
-                <span>Unlock Pro (₹99)</span>
-              </button>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={onOpenUpgradeModal}
+                  className="bg-gradient-to-r from-[#d4af37] to-[#f59e0b] hover:from-[#e5bd43] hover:to-[#fbbf24] text-black font-extrabold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-lg shadow-[#d4af37]/20 transition-transform hover:scale-105"
+                >
+                  <Crown className="w-3.5 h-3.5 fill-black" />
+                  <span>Unlock Pro (₹99)</span>
+                </button>
+
+                {/* Discrete Owner Unlock Button */}
+                <button
+                  onClick={() => setShowPinModal(true)}
+                  className="p-2 rounded-xl text-zinc-500 hover:text-[#d4af37] hover:bg-white/5 transition-colors"
+                  title="Owner / Admin Login"
+                >
+                  <KeyRound className="w-3.5 h-3.5" />
+                </button>
+              </div>
             )}
           </div>
         </div>
+
+        {/* Secret Owner Unlock PIN Modal */}
+        {showPinModal && (
+          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-[#121212] border border-[#d4af37]/50 rounded-2xl p-5 max-w-xs w-full text-center space-y-3 shadow-2xl">
+              <div className="w-10 h-10 rounded-xl bg-[#d4af37]/20 text-[#d4af37] flex items-center justify-center mx-auto">
+                <Crown className="w-5 h-5" />
+              </div>
+              <h4 className="text-sm font-bold text-white">Owner / Founder Login</h4>
+              <p className="text-[11px] text-zinc-400">Enter your 10-digit owner PIN to unlock 100% free lifetime access on this device.</p>
+              
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (loginAsOwner(adminPin)) {
+                    setShowPinModal(false);
+                    setAdminPin('');
+                  } else {
+                    alert('Incorrect Owner PIN.');
+                  }
+                }}
+                className="space-y-2.5"
+              >
+                <input
+                  type="password"
+                  placeholder="Enter PIN (8617793775)"
+                  value={adminPin}
+                  onChange={(e) => setAdminPin(e.target.value)}
+                  className="w-full bg-black/70 border border-white/20 rounded-xl px-3 py-2 text-xs text-white text-center font-mono-code focus:outline-none focus:border-[#d4af37]"
+                  autoFocus
+                />
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowPinModal(false)}
+                    className="flex-1 bg-white/5 hover:bg-white/10 text-zinc-400 text-xs py-2 rounded-xl"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 bg-[#d4af37] hover:bg-[#e5bd43] text-black font-bold text-xs py-2 rounded-xl"
+                  >
+                    Unlock
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
         {/* Navigation Tabs Bar */}
         <nav className="flex items-center gap-1 overflow-x-auto pb-2 border-t border-white/5 pt-2 text-xs no-scrollbar">

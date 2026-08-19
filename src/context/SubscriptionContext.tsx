@@ -20,25 +20,35 @@ export const OWNER_EMAIL = 'silverstick0005@gmail.com';
 export const MASTER_ADMIN_PINS = ['8617793775', 'ADMIN2026', 'FOUNDER100'];
 
 export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Load saved state or default to FOUNDER if owner, otherwise FREE_GUEST with trial
+  // STRICT DEFAULT: Every new visitor / phone starts as FREE_GUEST unless unlocked
   const [userTier, setUserTierState] = useState<UserTier>(() => {
-    const saved = localStorage.getItem('retail_investing_tier');
+    // Check secret owner URL parameter: ?owner=8617793775
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const ownerParam = urlParams.get('owner');
+      if (ownerParam && MASTER_ADMIN_PINS.includes(ownerParam.trim().toUpperCase())) {
+        localStorage.setItem('retail_investing_tier', 'FOUNDER_OWNER');
+        return 'FOUNDER_OWNER';
+      }
+    }
+
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('retail_investing_tier') : null;
     if (saved === 'FOUNDER_OWNER' || saved === 'PRO' || saved === 'PRO_PLUS') {
       return saved as UserTier;
     }
-    // Default to FOUNDER_OWNER for the owner's environment
-    return 'FOUNDER_OWNER';
+    // Default for ALL public users and new devices is FREE_GUEST
+    return 'FREE_GUEST';
   });
 
   const [userEmail, setUserEmail] = useState<string>(() => {
-    return localStorage.getItem('retail_investing_email') || OWNER_EMAIL;
+    return (typeof window !== 'undefined' ? localStorage.getItem('retail_investing_email') : '') || '';
   });
 
   useEffect(() => {
     localStorage.setItem('retail_investing_tier', userTier);
   }, [userTier]);
 
-  const isOwner = userTier === 'FOUNDER_OWNER' || userEmail === OWNER_EMAIL;
+  const isOwner = userTier === 'FOUNDER_OWNER';
   const isPro = isOwner || userTier === 'PRO' || userTier === 'PRO_PLUS';
 
   const setUserTier = (tier: UserTier) => {
@@ -49,6 +59,7 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const logoutToGuest = () => {
     setUserTierState('FREE_GUEST');
     localStorage.setItem('retail_investing_tier', 'FREE_GUEST');
+    localStorage.removeItem('retail_investing_email');
   };
 
   const loginAsOwner = (passwordOrPin: string) => {
@@ -68,7 +79,8 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
       setUserTier('FOUNDER_OWNER');
       return true;
     }
-    if (clean.length >= 8) { // Valid 8-12 digit UPI ref or promo code
+    // Valid 8-12 character UPI ref or verification code unlocks Pro
+    if (clean.length >= 6) {
       setUserTier('PRO_PLUS');
       return true;
     }
@@ -76,7 +88,7 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
   };
 
   const hasAccessTo = (feature: string): boolean => {
-    if (isOwner) return true; // Owner has 100% free lifetime access to everything
+    if (isOwner) return true; // Owner has 100% free lifetime access
     if (isPro) return true; // Paid Pro users have access
     return false; // Free guests get paywalled on premium modules
   };
