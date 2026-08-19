@@ -1,0 +1,6 @@
+{
+  "name": "Retail Investing",
+  "description": "Institutional-grade investment intelligence platform featuring AI ProPicks, Fair Value models, Financial Health scores, and 13F Guru tracker.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
