@@ -15,6 +15,7 @@ import { WatchlistView } from './components/WatchlistView';
 import { MonthlySignalsView } from './components/MonthlySignalsView';
 import { UpgradeModal } from './components/UpgradeModal';
 import { VideoWalkthroughModal } from './components/VideoWalkthroughModal';
+import { PaywallOverlay } from './components/PaywallOverlay';
 import { Sparkles, ShieldCheck, SlidersHorizontal, TrendingUp, Star, ChevronRight, Award, Zap, Compass, CheckCircle2, PlayCircle } from 'lucide-react';
 
 export default function App() {
@@ -178,14 +179,28 @@ export default function App() {
         {/* TAB 2: MONTHLY INVESTMENT TIPS & SIGNALS (BUY / SELL / AVOID) */}
         {activeTab === 'monthly-signals' && (
           <div className="animate-fadeIn">
-            <MonthlySignalsView onSelectTicker={handleSelectTicker} />
+            <PaywallOverlay
+              title="Exclusive Monthly Buy / Sell Signal Matrix"
+              description="Access institutional monthly rating scores (1-10), target entry buy zones, fair value ceilings, and stop-loss risk management for Indian (NSE/BSE) and US equities."
+              featureKey="signals"
+              onOpenUpgradeModal={() => setIsUpgradeModalOpen(true)}
+            >
+              <MonthlySignalsView onSelectTicker={handleSelectTicker} />
+            </PaywallOverlay>
           </div>
         )}
 
         {/* TAB 3: PROPICKS AI PORTFOLIOS */}
         {activeTab === 'propicks' && (
           <div className="animate-fadeIn">
-            <ProPicksView onSelectTicker={handleSelectTicker} />
+            <PaywallOverlay
+              title="RetailPicks™ AI Outperforming Model Portfolios"
+              description="Gain full visibility into Bharat Growth AI (+965%) and US Tech Titans (+1,782%) algorithmically rebalanced portfolios."
+              featureKey="pro-picks"
+              onOpenUpgradeModal={() => setIsUpgradeModalOpen(true)}
+            >
+              <ProPicksView onSelectTicker={handleSelectTicker} />
+            </PaywallOverlay>
           </div>
         )}
 
@@ -236,7 +251,14 @@ export default function App() {
         {/* TAB 7: 13F GURUS & BILLIONAIRES */}
         {activeTab === 'gurus' && (
           <div className="animate-fadeIn">
-            <GuruPortfoliosView onSelectTicker={handleSelectTicker} />
+            <PaywallOverlay
+              title="13F Guru & Institutional Billionaire Portfolios"
+              description="Track top stock holdings and quarterly portfolio allocations of legendary investors like Warren Buffett, Rakesh Jhunjhunwala, and Radhakishan Damani."
+              featureKey="guru"
+              onOpenUpgradeModal={() => setIsUpgradeModalOpen(true)}
+            >
+              <GuruPortfoliosView onSelectTicker={handleSelectTicker} />
+            </PaywallOverlay>
           </div>
         )}
 

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { POPULAR_US_TICKERS, POPULAR_INDIA_TICKERS, STOCKS_DATA } from '../data/stocksData';
 import { MarketRegion } from '../types';
-import { Search, Sparkles, TrendingUp, ShieldCheck, Crown, Layers, PieChart, Star, Compass, Globe, PlayCircle } from 'lucide-react';
+import { useSubscription, OWNER_EMAIL } from '../context/SubscriptionContext';
+import { Search, Sparkles, TrendingUp, ShieldCheck, Crown, Layers, PieChart, Star, Compass, Globe, PlayCircle, UserCheck, ShieldAlert, KeyRound } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: string;
@@ -24,8 +25,12 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenUpgradeModal,
   onOpenVideoTour,
 }) => {
+  const { userTier, isOwner, isPro, setUserTier, logoutToGuest, loginAsOwner } = useSubscription();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isTierMenuOpen, setIsTierMenuOpen] = useState(false);
+  const [adminPin, setAdminPin] = useState('');
+  const [showPinModal, setShowPinModal] = useState(false);
 
   const currentPopularTickers = marketRegion === 'INDIA' ? POPULAR_INDIA_TICKERS : POPULAR_US_TICKERS;
 
@@ -185,24 +190,80 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </div>
 
-          {/* Right Action Menu: Video Tour & Upgrade to Pro */}
+          {/* Right Action Menu: Owner VIP Badge / Upgrade to Pro */}
           <div className="flex items-center gap-2.5">
             <button
               onClick={onOpenVideoTour}
-              className="bg-white/5 hover:bg-white/10 text-[#d4af37] border border-[#d4af37]/30 font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 transition-colors"
+              className="bg-white/5 hover:bg-white/10 text-[#d4af37] border border-[#d4af37]/30 font-bold text-xs px-3 py-2 rounded-xl hidden sm:flex items-center gap-1.5 transition-colors"
               title="Watch interactive app tour & video explanation"
             >
               <PlayCircle className="w-4 h-4 text-[#d4af37]" />
-              <span className="hidden sm:inline">Video Tour</span>
+              <span>Video Tour</span>
             </button>
 
-            <button
-              onClick={onOpenUpgradeModal}
-              className="bg-gradient-to-r from-[#d4af37] to-[#f59e0b] hover:from-[#e5bd43] hover:to-[#fbbf24] text-black font-extrabold text-xs px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-lg shadow-[#d4af37]/20 transition-transform hover:scale-105"
-            >
-              <Crown className="w-3.5 h-3.5 fill-black" />
-              <span>Unlock Pro+</span>
-            </button>
+            {/* If Owner: Show VIP Lifetime Owner Badge + Switcher */}
+            {isOwner ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsTierMenuOpen(!isTierMenuOpen)}
+                  className="bg-gradient-to-r from-[#d4af37]/20 via-[#f59e0b]/20 to-[#d4af37]/10 border border-[#d4af37]/50 text-[#d4af37] font-bold text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-sm hover:border-[#d4af37] transition-all"
+                >
+                  <Crown className="w-3.5 h-3.5 fill-[#d4af37]" />
+                  <span className="font-mono-code text-[11px]">Owner / VIP (Free)</span>
+                </button>
+
+                {/* Owner Tier Dropdown */}
+                {isTierMenuOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-64 bg-[#101010] border border-[#d4af37]/40 rounded-2xl p-3 shadow-2xl z-50 space-y-2 text-xs">
+                    <div className="border-b border-white/10 pb-2">
+                      <div className="font-bold text-white flex items-center gap-1">
+                        <Crown className="w-3.5 h-3.5 text-[#d4af37]" />
+                        <span>Owner VIP Account</span>
+                      </div>
+                      <div className="text-[10px] text-zinc-400 font-mono-code truncate">{OWNER_EMAIL}</div>
+                      <div className="text-[10px] text-emerald-400 font-bold mt-1">✓ Unlimited Lifetime Free Access</div>
+                    </div>
+
+                    <div className="space-y-1 pt-1">
+                      <div className="text-[10px] uppercase font-bold text-zinc-500">Test Customer Experience:</div>
+                      <button
+                        onClick={() => {
+                          logoutToGuest();
+                          setIsTierMenuOpen(false);
+                        }}
+                        className="w-full text-left px-2.5 py-1.5 rounded-lg text-zinc-300 hover:bg-white/10 hover:text-white flex items-center justify-between"
+                      >
+                        <span>Switch to Guest (Paywalled)</span>
+                        <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          setUserTier('FOUNDER_OWNER');
+                          setIsTierMenuOpen(false);
+                        }}
+                        className="w-full text-left px-2.5 py-1.5 rounded-lg text-[#d4af37] font-bold bg-[#d4af37]/10 flex items-center justify-between"
+                      >
+                        <span>Founder Mode (100% Free)</span>
+                        <UserCheck className="w-3.5 h-3.5 text-[#d4af37]" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : isPro ? (
+              <div className="bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-bold text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5">
+                <Crown className="w-3.5 h-3.5 fill-emerald-400" />
+                <span>PRO Active</span>
+              </div>
+            ) : (
+              <button
+                onClick={onOpenUpgradeModal}
+                className="bg-gradient-to-r from-[#d4af37] to-[#f59e0b] hover:from-[#e5bd43] hover:to-[#fbbf24] text-black font-extrabold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-lg shadow-[#d4af37]/20 transition-transform hover:scale-105"
+              >
+                <Crown className="w-3.5 h-3.5 fill-black" />
+                <span>Unlock Pro (₹99)</span>
+              </button>
+            )}
           </div>
         </div>
 

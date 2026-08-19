@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Check, Zap, Sparkles, ShieldCheck, Crown, QrCode, CreditCard, Building2, Copy, CheckCircle2, ArrowRight, ArrowLeft, Lock, BadgePercent, HeartHandshake, PhoneCall } from 'lucide-react';
+import { useSubscription } from '../context/SubscriptionContext';
 
 interface UpgradeModalProps {
   isOpen: boolean;
@@ -7,6 +8,7 @@ interface UpgradeModalProps {
 }
 
 export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) => {
+  const { setUserTier, isOwner } = useSubscription();
   const [selectedPlan, setSelectedPlan] = useState<'PRO' | 'PRO_PLUS' | null>(null);
   const [billingCycle, setBillingCycle] = useState<'MONTHLY' | 'ANNUAL'>('MONTHLY');
   const [paymentMethod, setPaymentMethod] = useState<'UPI_QR' | 'DEBIT_CREDIT_CARD'>('UPI_QR');
@@ -658,6 +660,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
             </p>
             <button
               onClick={() => {
+                setUserTier(selectedPlan === 'PRO_PLUS' ? 'PRO_PLUS' : 'PRO');
                 setSelectedPlan(null);
                 setIsSuccessSubmitted(false);
                 onClose();
