@@ -88,7 +88,7 @@ export default function App() {
                 </div>
                 <div>
                   <h4 className="text-sm font-serif-display font-bold text-white">
-                    New to Retail Investing PRO? Watch the Interactive Video Tour
+                    New to Retail Investor PRO? Watch the Interactive Video Tour
                   </h4>
                   <p className="text-xs text-zinc-400">
                     Learn how 14-Model DCF Fair Value, Indian (NSE/BSE) strategies, and Monthly Buy/Sell signals work.
@@ -321,9 +321,9 @@ export default function App() {
               R
             </div>
             <span className="font-bold text-white tracking-wider uppercase text-xs">
-              Retail<span className="text-[#d4af37]">Investing</span> PRO
+              Retail<span className="text-[#d4af37]">Investor</span> PRO
             </span>
-            <span className="text-zinc-400">| © 2026 Retail Investing Inc.</span>
+            <span className="text-zinc-400">| © 2026 Retail Investor Inc.</span>
           </div>
 
           <div className="flex items-center gap-6 text-[11px] text-zinc-400 uppercase tracking-wider">

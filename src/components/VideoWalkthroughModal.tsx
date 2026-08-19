@@ -20,7 +20,7 @@ export const VideoWalkthroughModal: React.FC<VideoWalkthroughModalProps> = ({
   const slides = [
     {
       id: 'intro',
-      title: 'Welcome to Retail Investing PRO',
+      title: 'Welcome to Retail Investor PRO',
       badge: 'Platform Overview',
       tagline: 'An institutional-grade intelligence platform modeled after InvestingPro, customized for retail investors.',
       videoPlaceholderColor: 'from-[#d4af37]/20 via-[#18181b] to-[#0a0a0a]',

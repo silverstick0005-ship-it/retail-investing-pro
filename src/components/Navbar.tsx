@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
               <div>
                 <span className="text-lg font-serif-display font-bold tracking-tight text-white">
-                  Retail<span className="text-[#d4af37]">Investing</span>
+                  Retail<span className="text-[#d4af37]">Investor</span>
                 </span>
                 <span className="ml-1.5 bg-[#d4af37]/15 text-[#d4af37] text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded border border-[#d4af37]/30 tracking-wider">
                   PRO
@@ -285,8 +285,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="w-10 h-10 rounded-xl bg-[#d4af37]/20 text-[#d4af37] flex items-center justify-center mx-auto">
                 <Crown className="w-5 h-5" />
               </div>
-              <h4 className="text-sm font-bold text-white">Owner / Founder Login</h4>
-              <p className="text-[11px] text-zinc-400">Enter your 10-digit owner PIN to unlock 100% free lifetime access on this device.</p>
+              <h4 className="text-sm font-bold text-white">Founder Passcode</h4>
+              <p className="text-[11px] text-zinc-400">Enter your confidential founder passcode to unlock VIP access on this device.</p>
               
               <form
                 onSubmit={(e) => {
@@ -295,14 +295,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                     setShowPinModal(false);
                     setAdminPin('');
                   } else {
-                    alert('Incorrect Owner PIN.');
+                    alert('Invalid passcode.');
                   }
                 }}
                 className="space-y-2.5"
               >
                 <input
                   type="password"
-                  placeholder="Enter PIN (8617793775)"
+                  placeholder="Enter Secret Passcode"
                   value={adminPin}
                   onChange={(e) => setAdminPin(e.target.value)}
                   className="w-full bg-black/70 border border-white/20 rounded-xl px-3 py-2 text-xs text-white text-center font-mono-code focus:outline-none focus:border-[#d4af37]"

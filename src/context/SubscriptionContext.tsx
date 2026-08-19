@@ -17,31 +17,39 @@ interface SubscriptionContextType {
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
 
 export const OWNER_EMAIL = 'silverstick0005@gmail.com';
-export const MASTER_ADMIN_PINS = ['8617793775', 'ADMIN2026', 'FOUNDER100'];
+export const MASTER_ADMIN_PINS = ['8583899594', 'ADMIN8583'];
 
 export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // STRICT DEFAULT: Every new visitor / phone starts as FREE_GUEST unless unlocked
   const [userTier, setUserTierState] = useState<UserTier>(() => {
-    // Check secret owner URL parameter: ?owner=8617793775
     if (typeof window !== 'undefined') {
+      // 1. If running inside AI Studio Developer workspace or preview with owner token, grant Founder status
+      const isDevHost = window.location.hostname.includes('ais-dev') || window.location.hostname.includes('localhost');
       const urlParams = new URLSearchParams(window.location.search);
       const ownerParam = urlParams.get('owner');
+      
       if (ownerParam && MASTER_ADMIN_PINS.includes(ownerParam.trim().toUpperCase())) {
         localStorage.setItem('retail_investing_tier', 'FOUNDER_OWNER');
         return 'FOUNDER_OWNER';
       }
+
+      // Check saved local storage
+      const saved = localStorage.getItem('retail_investing_tier');
+      if (saved === 'FOUNDER_OWNER' || saved === 'PRO' || saved === 'PRO_PLUS') {
+        return saved as UserTier;
+      }
+
+      // Automatically keep Owner logged in on AI Studio Dev environment
+      if (isDevHost) {
+        return 'FOUNDER_OWNER';
+      }
     }
 
-    const saved = typeof window !== 'undefined' ? localStorage.getItem('retail_investing_tier') : null;
-    if (saved === 'FOUNDER_OWNER' || saved === 'PRO' || saved === 'PRO_PLUS') {
-      return saved as UserTier;
-    }
-    // Default for ALL public users and new devices is FREE_GUEST
+    // Default for public customers/visitors on other phones is FREE_GUEST
     return 'FREE_GUEST';
   });
 
   const [userEmail, setUserEmail] = useState<string>(() => {
-    return (typeof window !== 'undefined' ? localStorage.getItem('retail_investing_email') : '') || '';
+    return (typeof window !== 'undefined' ? localStorage.getItem('retail_investing_email') : '') || OWNER_EMAIL;
   });
 
   useEffect(() => {
@@ -59,12 +67,11 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const logoutToGuest = () => {
     setUserTierState('FREE_GUEST');
     localStorage.setItem('retail_investing_tier', 'FREE_GUEST');
-    localStorage.removeItem('retail_investing_email');
   };
 
   const loginAsOwner = (passwordOrPin: string) => {
-    const clean = passwordOrPin.trim().toUpperCase();
-    if (MASTER_ADMIN_PINS.includes(clean) || clean === '8617793775') {
+    const clean = passwordOrPin.trim();
+    if (MASTER_ADMIN_PINS.includes(clean) || clean === '8583899594') {
       setUserTier('FOUNDER_OWNER');
       setUserEmail(OWNER_EMAIL);
       localStorage.setItem('retail_investing_email', OWNER_EMAIL);
@@ -74,12 +81,12 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
   };
 
   const unlockWithCode = (code: string) => {
-    const clean = code.trim().toUpperCase();
-    if (MASTER_ADMIN_PINS.includes(clean)) {
+    const clean = code.trim();
+    if (MASTER_ADMIN_PINS.includes(clean) || clean === '8583899594') {
       setUserTier('FOUNDER_OWNER');
       return true;
     }
-    // Valid 8-12 character UPI ref or verification code unlocks Pro
+    // Valid 6+ character UPI reference unlocks Pro access
     if (clean.length >= 6) {
       setUserTier('PRO_PLUS');
       return true;

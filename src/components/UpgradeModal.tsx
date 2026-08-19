@@ -27,12 +27,12 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
 
   // OWNER PAYMENT DETAILS (Configured with your Paytm / HDFC UPI)
   const paymentConfig = {
-    businessName: 'Retail Investing PRO',
+    businessName: 'Retail Investor PRO',
     upiId: '8617793775@pthdfc', // Your verified Paytm / HDFC UPI ID
     accountNumber: '8617793775',
     ifscCode: 'HDFC0000001',
     bankName: 'HDFC Bank / Paytm Payments',
-    accountHolder: 'Retail Investing PRO',
+    accountHolder: 'Retail Investor PRO',
     supportEmail: 'silverstick0005@gmail.com',
     supportWhatsApp: '+91 8617793775',
   };

@@ -107,7 +107,7 @@ export const PaywallOverlay: React.FC<PaywallOverlayProps> = ({
               <form onSubmit={handleCodeSubmit} className="pt-2 flex gap-2">
                 <input
                   type="password"
-                  placeholder="Enter Owner PIN (8617793775) or UPI ID"
+                  placeholder="Enter Passcode or Activation ID"
                   value={accessCode}
                   onChange={(e) => setAccessCode(e.target.value)}
                   className="flex-1 bg-black/80 border border-white/20 rounded-xl px-3 py-1.5 text-xs text-white font-mono-code focus:outline-none focus:border-[#d4af37]"
