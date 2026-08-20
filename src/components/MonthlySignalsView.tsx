@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { STOCKS_DATA } from '../data/stocksData';
+import { useLiveMarket } from '../context/LiveMarketContext';
 import { Stock, MonthlySignal } from '../types';
 import { Sparkles, TrendingUp, AlertTriangle, ShieldCheck, CheckCircle2, XCircle, ArrowUpRight, ArrowDownRight, Compass, Filter, ChevronRight } from 'lucide-react';
 
@@ -8,10 +8,11 @@ interface MonthlySignalsViewProps {
 }
 
 export const MonthlySignalsView: React.FC<MonthlySignalsViewProps> = ({ onSelectTicker }) => {
+  const { stocks: allStocksMap } = useLiveMarket();
   const [actionFilter, setActionFilter] = useState<'ALL' | 'BUY' | 'HOLD' | 'AVOID'>('ALL');
   const [marketFilter, setMarketFilter] = useState<'ALL' | 'US' | 'INDIA'>('ALL');
 
-  const stocksList: Stock[] = Object.values(STOCKS_DATA);
+  const stocksList: Stock[] = Object.values(allStocksMap);
 
   const filteredStocks = stocksList.filter((s) => {
     if (marketFilter !== 'ALL' && s.market !== marketFilter) return false;

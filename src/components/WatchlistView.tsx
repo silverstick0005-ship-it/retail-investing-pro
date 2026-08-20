@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { STOCKS_DATA } from '../data/stocksData';
+import { useLiveMarket } from '../context/LiveMarketContext';
 import { Stock } from '../types';
-import { Bookmark, TrendingUp, Plus, Trash2, ArrowUpRight, ArrowDownRight, ShieldCheck, ChevronRight } from 'lucide-react';
+import { Bookmark, TrendingUp, Plus, Trash2, ArrowUpRight, ArrowDownRight, ShieldCheck, ChevronRight, Activity } from 'lucide-react';
 
 interface WatchlistViewProps {
   watchlist: string[];
@@ -14,6 +14,7 @@ export const WatchlistView: React.FC<WatchlistViewProps> = ({
   onRemoveFromWatchlist,
   onSelectTicker
 }) => {
+  const { stocks: allStocks } = useLiveMarket();
   const [sharesMap, setSharesMap] = useState<Record<string, number>>({
     RELIANCE: 25,
     HDFCBANK: 40,
@@ -23,7 +24,7 @@ export const WatchlistView: React.FC<WatchlistViewProps> = ({
   });
 
   const stocks: Stock[] = watchlist
-    .map((t) => STOCKS_DATA[t])
+    .map((t) => allStocks[t])
     .filter(Boolean);
 
   const avgHealth = stocks.length > 0

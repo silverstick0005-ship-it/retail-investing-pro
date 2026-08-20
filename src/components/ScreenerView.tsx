@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { STOCKS_DATA } from '../data/stocksData';
+import { useLiveMarket } from '../context/LiveMarketContext';
 import { Stock } from '../types';
-import { SlidersHorizontal, Search, Download, ArrowUpDown, Filter, Sparkles, ChevronRight, Check } from 'lucide-react';
+import { SlidersHorizontal, Search, Download, ArrowUpDown, Filter, Sparkles, ChevronRight, Check, Activity } from 'lucide-react';
 
 interface ScreenerViewProps {
   onSelectTicker: (ticker: string) => void;
 }
 
 export const ScreenerView: React.FC<ScreenerViewProps> = ({ onSelectTicker }) => {
+  const { stocks: allStocksMap } = useLiveMarket();
   const [sectorFilter, setSectorFilter] = useState<string>('ALL');
   const [marketFilter, setMarketFilter] = useState<'ALL' | 'INDIA' | 'US'>('ALL');
   const [minUpside, setMinUpside] = useState<number>(0);
@@ -16,7 +17,7 @@ export const ScreenerView: React.FC<ScreenerViewProps> = ({ onSelectTicker }) =>
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [sortField, setSortField] = useState<'upside' | 'health' | 'pe' | 'marketCap'>('upside');
 
-  const stocksList: Stock[] = Object.values(STOCKS_DATA);
+  const stocksList: Stock[] = Object.values(allStocksMap);
 
   const filteredStocks = stocksList.filter((s) => {
     if (marketFilter !== 'ALL' && s.market !== marketFilter) return false;

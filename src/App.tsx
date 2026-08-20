@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { STOCKS_DATA } from './data/stocksData';
+import { useLiveMarket } from './context/LiveMarketContext';
 import { MarketRegion } from './types';
 import { Navbar } from './components/Navbar';
 import { StockHeader } from './components/StockHeader';
@@ -19,6 +19,7 @@ import { PaywallOverlay } from './components/PaywallOverlay';
 import { Sparkles, ShieldCheck, SlidersHorizontal, TrendingUp, Star, ChevronRight, Award, Zap, Compass, CheckCircle2, PlayCircle } from 'lucide-react';
 
 export default function App() {
+  const { stocks } = useLiveMarket();
   const [activeTab, setActiveTab] = useState<string>('dashboard');
   const [marketRegion, setMarketRegion] = useState<MarketRegion>('INDIA');
   const [selectedTicker, setSelectedTicker] = useState<string>('RELIANCE');
@@ -26,7 +27,7 @@ export default function App() {
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState<boolean>(false);
   const [isVideoTourOpen, setIsVideoTourOpen] = useState<boolean>(false);
 
-  const stock = STOCKS_DATA[selectedTicker] || STOCKS_DATA['RELIANCE'];
+  const stock = stocks[selectedTicker] || stocks['RELIANCE'];
   const isBookmarked = watchlist.includes(selectedTicker);
 
   const toggleBookmark = () => {
@@ -38,9 +39,9 @@ export default function App() {
   };
 
   const handleSelectTicker = (ticker: string) => {
-    if (STOCKS_DATA[ticker]) {
+    if (stocks[ticker]) {
       setSelectedTicker(ticker);
-      setMarketRegion(STOCKS_DATA[ticker].market);
+      setMarketRegion(stocks[ticker].market);
       setActiveTab('dashboard');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -54,9 +55,9 @@ export default function App() {
         setActiveTab={setActiveTab}
         selectedTicker={selectedTicker}
         setSelectedTicker={(ticker) => {
-          if (STOCKS_DATA[ticker]) {
+          if (stocks[ticker]) {
             setSelectedTicker(ticker);
-            setMarketRegion(STOCKS_DATA[ticker].market);
+            setMarketRegion(stocks[ticker].market);
           }
           setActiveTab('dashboard');
         }}

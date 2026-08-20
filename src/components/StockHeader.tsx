@@ -1,6 +1,7 @@
 import React from 'react';
 import { Stock } from '../types';
-import { Bookmark, Sparkles, TrendingUp, TrendingDown, ArrowUpRight, ShieldCheck, Share2, Info, Building2, Compass, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { useLiveMarket } from '../context/LiveMarketContext';
+import { Bookmark, Sparkles, TrendingUp, TrendingDown, ArrowUpRight, ShieldCheck, Share2, Info, Building2, Compass, AlertTriangle, CheckCircle2, Activity, RefreshCw } from 'lucide-react';
 
 interface StockHeaderProps {
   stock: Stock;
@@ -17,6 +18,7 @@ export const StockHeader: React.FC<StockHeaderProps> = ({
   onToggleBookmark,
   onSelectTab
 }) => {
+  const { isLiveStreaming, lastTickTime, toggleLiveStream, refreshAllPrices } = useLiveMarket();
   const isPos = stock.change >= 0;
   const fiftyTwoWeekPct = Math.min(
     100,
@@ -92,10 +94,22 @@ export const StockHeader: React.FC<StockHeaderProps> = ({
                 {isPos ? '+' : ''}{stock.change.toFixed(2)} ({isPos ? '+' : ''}{stock.changePercent.toFixed(2)}%)
               </span>
             </div>
-            <div className="text-[10px] text-zinc-400 mt-1 flex items-center gap-1">
-              <span>Real-Time {stock.market === 'INDIA' ? 'NSE / BSE Feed' : 'US Market Feed'}</span>
+            <div className="text-[10px] text-zinc-400 mt-1.5 flex items-center gap-2 flex-wrap">
+              <span className="flex items-center gap-1.5 font-mono-code font-bold text-emerald-400">
+                <span className={`w-2 h-2 rounded-full ${isLiveStreaming ? 'bg-emerald-500 animate-ping' : 'bg-zinc-500'}`}></span>
+                <span>{isLiveStreaming ? 'LIVE TICK STREAM' : 'FEED PAUSED'}</span>
+              </span>
               <span>•</span>
-              <span className="text-[#d4af37] font-semibold">{stock.currency}</span>
+              <span className="text-zinc-500 font-mono-code">Updated: {lastTickTime}</span>
+              <span>•</span>
+              <button
+                onClick={refreshAllPrices}
+                className="text-[#d4af37] hover:underline flex items-center gap-1 font-semibold"
+                title="Instant Refresh"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span>Refresh</span>
+              </button>
             </div>
           </div>
 

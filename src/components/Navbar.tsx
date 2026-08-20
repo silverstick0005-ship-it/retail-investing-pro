@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { POPULAR_US_TICKERS, POPULAR_INDIA_TICKERS, STOCKS_DATA } from '../data/stocksData';
-import { MarketRegion } from '../types';
+import { POPULAR_US_TICKERS, POPULAR_INDIA_TICKERS } from '../data/stocksData';
+import { MarketRegion, Stock } from '../types';
 import { useSubscription, OWNER_EMAIL } from '../context/SubscriptionContext';
-import { Search, Sparkles, TrendingUp, ShieldCheck, Crown, Layers, PieChart, Star, Compass, Globe, PlayCircle, UserCheck, ShieldAlert, KeyRound } from 'lucide-react';
+import { useLiveMarket } from '../context/LiveMarketContext';
+import { Search, Sparkles, TrendingUp, ShieldCheck, Crown, Layers, PieChart, Star, Compass, Globe, PlayCircle, UserCheck, ShieldAlert, KeyRound, Activity, Pause, Play } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: string;
@@ -26,6 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenVideoTour,
 }) => {
   const { userTier, isOwner, isPro, setUserTier, logoutToGuest, loginAsOwner } = useSubscription();
+  const { stocks, isLiveStreaming, toggleLiveStream, lastTickTime } = useLiveMarket();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isTierMenuOpen, setIsTierMenuOpen] = useState(false);
@@ -34,8 +36,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const currentPopularTickers = marketRegion === 'INDIA' ? POPULAR_INDIA_TICKERS : POPULAR_US_TICKERS;
 
-  const filteredTickers = Object.values(STOCKS_DATA).filter(
-    (s) =>
+  const filteredTickers: Stock[] = (Object.values(stocks) as Stock[]).filter(
+    (s: Stock) =>
       s.ticker.toLowerCase().includes(searchQuery.toLowerCase()) ||
       s.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -43,14 +45,14 @@ export const Navbar: React.FC<NavbarProps> = ({
   const marqueeItems = [
     { ticker: 'NIFTY 50', price: '24,852.10', change: '+0.64%', isPos: true },
     { ticker: 'SENSEX', price: '81,424.30', change: '+0.58%', isPos: true },
+    { ticker: 'RELIANCE', price: `₹${stocks['RELIANCE']?.price.toFixed(2) || '1,315.00'}`, change: `${stocks['RELIANCE']?.change >= 0 ? '+' : ''}${stocks['RELIANCE']?.changePercent.toFixed(2)}%`, isPos: (stocks['RELIANCE']?.change || 0) >= 0 },
+    { ticker: 'HDFCBANK', price: `₹${stocks['HDFCBANK']?.price.toFixed(2) || '1,745.00'}`, change: `${stocks['HDFCBANK']?.change >= 0 ? '+' : ''}${stocks['HDFCBANK']?.changePercent.toFixed(2)}%`, isPos: (stocks['HDFCBANK']?.change || 0) >= 0 },
+    { ticker: 'NVDA', price: `$${stocks['NVDA']?.price.toFixed(2) || '136.50'}`, change: `${stocks['NVDA']?.change >= 0 ? '+' : ''}${stocks['NVDA']?.changePercent.toFixed(2)}%`, isPos: (stocks['NVDA']?.change || 0) >= 0 },
+    { ticker: 'TCS', price: `₹${stocks['TCS']?.price.toFixed(2) || '3,980.00'}`, change: `${stocks['TCS']?.change >= 0 ? '+' : ''}${stocks['TCS']?.changePercent.toFixed(2)}%`, isPos: (stocks['TCS']?.change || 0) >= 0 },
+    { ticker: 'AAPL', price: `$${stocks['AAPL']?.price.toFixed(2) || '230.50'}`, change: `${stocks['AAPL']?.change >= 0 ? '+' : ''}${stocks['AAPL']?.changePercent.toFixed(2)}%`, isPos: (stocks['AAPL']?.change || 0) >= 0 },
+    { ticker: 'GOOGL', price: `$${stocks['GOOGL']?.price.toFixed(2) || '180.20'}`, change: `${stocks['GOOGL']?.change >= 0 ? '+' : ''}${stocks['GOOGL']?.changePercent.toFixed(2)}%`, isPos: (stocks['GOOGL']?.change || 0) >= 0 },
     { ticker: 'S&P 500', price: '5,864.20', change: '+0.42%', isPos: true },
     { ticker: 'NASDAQ', price: '18,485.60', change: '+0.81%', isPos: true },
-    { ticker: 'RELIANCE', price: '₹1,395.50', change: '+1.34%', isPos: true },
-    { ticker: 'HDFCBANK', price: '₹1,780.00', change: '+0.80%', isPos: true },
-    { ticker: 'NVDA', price: '$138.25', change: '+3.07%', isPos: true },
-    { ticker: 'TCS', price: '₹4,120.00', change: '+0.79%', isPos: true },
-    { ticker: 'AAPL', price: '$232.45', change: '+1.25%', isPos: true },
-    { ticker: 'GOOGL', price: '$182.40', change: '+1.08%', isPos: true }
   ];
 
   return (
@@ -58,15 +60,20 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Real-Time Live Ticker Marquee */}
       <div className="bg-[#090909] border-b border-white/5 py-1.5 px-4 overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-6 whitespace-nowrap text-[11px] font-mono-code">
-          <span className="text-[10px] uppercase font-bold text-[#d4af37] tracking-wider flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            LIVE MARKETS:
-          </span>
+          <button
+            onClick={toggleLiveStream}
+            className="text-[10px] uppercase font-bold text-[#d4af37] tracking-wider flex items-center gap-1.5 bg-white/5 hover:bg-white/10 px-2 py-0.5 rounded transition-colors"
+            title="Click to pause or resume live ticks"
+          >
+            <span className={`w-2 h-2 rounded-full ${isLiveStreaming ? 'bg-emerald-500 animate-ping' : 'bg-zinc-500'}`}></span>
+            <span>{isLiveStreaming ? 'LIVE STREAM (2s)' : 'STREAM PAUSED'}</span>
+            {isLiveStreaming ? <Pause className="w-2.5 h-2.5 ml-0.5 text-zinc-400" /> : <Play className="w-2.5 h-2.5 ml-0.5 text-emerald-400" />}
+          </button>
           {marqueeItems.map((item, idx) => (
             <button
               key={idx}
               onClick={() => {
-                if (STOCKS_DATA[item.ticker]) {
+                if (stocks[item.ticker]) {
                   setSelectedTicker(item.ticker);
                 }
               }}
