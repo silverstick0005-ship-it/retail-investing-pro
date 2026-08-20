@@ -8,26 +8,26 @@ export const STOCKS_DATA: Record<string, Stock> = {
     sector: 'Technology',
     industry: 'Consumer Electronics',
     market: 'US',
-    price: 232.45,
-    change: 2.88,
-    changePercent: 1.25,
-    marketCap: '$3.54 Trillion',
-    pe: 34.2,
-    forwardPE: 28.5,
+    price: 230.50,
+    change: 1.85,
+    changePercent: 0.81,
+    marketCap: '$3.51 Trillion',
+    pe: 33.9,
+    forwardPE: 28.1,
     eps: 6.79,
     dividendYield: 0.44,
     beta: 1.08,
     fiftyTwoWeekHigh: 237.23,
     fiftyTwoWeekLow: 164.08,
-    volume: '54.2M',
+    volume: '52.4M',
     avgVolume: '48.9M',
     exchange: 'NASDAQ',
     currency: 'USD',
     currencySymbol: '$',
     monthlySignal: {
       action: 'ACCUMULATE',
-      ratingScore: 8.5,
-      targetEntryRange: '$225 - $232',
+      ratingScore: 8.6,
+      targetEntryRange: '$224 - $231',
       fairValueTarget: '$268.30',
       stopLoss: '$210.00',
       primaryRationale: 'Expanding Services high-margin stream (74% gross margin) and continuous $100B+ annual buyback support.',
@@ -37,10 +37,10 @@ export const STOCKS_DATA: Record<string, Stock> = {
     description: 'Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories, and sells a variety of related services globally.',
     fairValue: {
       consensusValue: 268.30,
-      upsidePercent: 15.42,
+      upsidePercent: 16.40,
       uncertainty: 'Low',
-      analystTarget: 248.50,
-      analystUpsidePercent: 6.90,
+      analystTarget: 252.00,
+      analystUpsidePercent: 9.33,
       analystCount: 42,
       modelsCount: 14,
       models: [
@@ -111,7 +111,7 @@ export const STOCKS_DATA: Record<string, Stock> = {
           maxScore: 5.0,
           status: 'Good',
           keyMetrics: [
-            { label: 'Trailing P/E', value: '34.2x', benchmark: '5Y Avg: 28.9x', status: 'neutral' },
+            { label: 'Trailing P/E', value: '33.9x', benchmark: '5Y Avg: 28.9x', status: 'neutral' },
             { label: 'Forward EV/EBITDA', value: '23.8x', benchmark: 'Tech Avg: 21.2x', status: 'neutral' },
             { label: 'FCF Yield', value: '3.1%', benchmark: 'Megacap Avg: 2.8%', status: 'positive' }
           ]
@@ -122,7 +122,7 @@ export const STOCKS_DATA: Record<string, Stock> = {
       { id: 'pt1', type: 'bull', title: 'High Return on Invested Capital (ROIC)', description: 'Generates an outstanding 56.4% ROIC, evidencing a deep economic moat in ecosystem retention.', badge: 'Moat Strength' },
       { id: 'pt2', type: 'bull', title: 'Consistent Capital Return Machine', description: 'Has repurchased over $650 Billion in shares over the past decade while growing dividends 12 consecutive years.', badge: 'Shareholder Yield' },
       { id: 'pt3', type: 'bull', title: 'High Margin Services Expansion', description: 'Services segment now accounts for ~25% of net revenues at 74% gross margins, mitigating hardware upgrade cyclicality.', badge: 'Margin Expansion' },
-      { id: 'pt4', type: 'bear', title: 'Valuation Trades at Premium to Historic Range', description: 'Current P/E of 34.2x is elevated relative to its 5-year historical average of 28.9x.', badge: 'Valuation Multiple' },
+      { id: 'pt4', type: 'bear', title: 'Valuation Trades at Premium to Historic Range', description: 'Current P/E of 33.9x is elevated relative to its 5-year historical average of 28.9x.', badge: 'Valuation Multiple' },
       { id: 'pt5', type: 'bear', title: 'Geopolitical & Regulatory Scrutiny', description: 'Subject to EU Digital Markets Act compliance and DOJ antitrust inquiries on App Store revenue shares.', badge: 'Regulatory' }
     ],
     financials: {
@@ -146,26 +146,26 @@ export const STOCKS_DATA: Record<string, Stock> = {
     sector: 'Technology',
     industry: 'Semiconductors & AI Hardware',
     market: 'US',
-    price: 138.25,
-    change: 4.12,
-    changePercent: 3.07,
-    marketCap: '$3.38 Trillion',
-    pe: 48.6,
-    forwardPE: 32.4,
+    price: 136.50,
+    change: 3.20,
+    changePercent: 2.40,
+    marketCap: '$3.34 Trillion',
+    pe: 47.8,
+    forwardPE: 31.8,
     eps: 2.84,
     dividendYield: 0.03,
     beta: 1.68,
     fiftyTwoWeekHigh: 153.13,
     fiftyTwoWeekLow: 45.42,
-    volume: '88.5M',
+    volume: '84.2M',
     avgVolume: '92.1M',
     exchange: 'NASDAQ',
     currency: 'USD',
     currencySymbol: '$',
     monthlySignal: {
       action: 'STRONG BUY',
-      ratingScore: 9.4,
-      targetEntryRange: '$130 - $138',
+      ratingScore: 9.5,
+      targetEntryRange: '$128 - $137',
       fairValueTarget: '$165.80',
       stopLoss: '$118.00',
       primaryRationale: 'Triple-digit datacenter revenue growth, Blackwell GPU transition sold out for next 12 months, and 75% gross margins.',
@@ -175,10 +175,10 @@ export const STOCKS_DATA: Record<string, Stock> = {
     description: 'NVIDIA Corporation provides graphics, computing and networking solutions. Its GPU architectures power modern artificial intelligence training, accelerated computing, and enterprise datacenters.',
     fairValue: {
       consensusValue: 165.80,
-      upsidePercent: 19.93,
+      upsidePercent: 21.47,
       uncertainty: 'Medium',
       analystTarget: 172.00,
-      analystUpsidePercent: 24.41,
+      analystUpsidePercent: 26.01,
       analystCount: 58,
       modelsCount: 14,
       models: [
@@ -236,7 +236,7 @@ export const STOCKS_DATA: Record<string, Stock> = {
           maxScore: 5.0,
           status: 'Great',
           keyMetrics: [
-            { label: 'Forward P/E', value: '32.4x', benchmark: 'PEG < 1.0 indicates value', status: 'positive' }
+            { label: 'Forward P/E', value: '31.8x', benchmark: 'PEG < 1.0 indicates value', status: 'positive' }
           ]
         }
       }
@@ -260,24 +260,102 @@ export const STOCKS_DATA: Record<string, Stock> = {
     }
   },
 
+  MSFT: {
+    ticker: 'MSFT',
+    name: 'Microsoft Corporation',
+    sector: 'Technology',
+    industry: 'Enterprise Software & Cloud',
+    market: 'US',
+    price: 422.50,
+    change: 3.80,
+    changePercent: 0.91,
+    marketCap: '$3.14 Trillion',
+    pe: 33.2,
+    forwardPE: 27.4,
+    eps: 12.72,
+    dividendYield: 0.78,
+    beta: 1.12,
+    fiftyTwoWeekHigh: 468.35,
+    fiftyTwoWeekLow: 388.00,
+    volume: '19.4M',
+    avgVolume: '21.5M',
+    exchange: 'NASDAQ',
+    currency: 'USD',
+    currencySymbol: '$',
+    monthlySignal: {
+      action: 'STRONG BUY',
+      ratingScore: 9.4,
+      targetEntryRange: '$415 - $425',
+      fairValueTarget: '$490.00',
+      stopLoss: '$385.00',
+      primaryRationale: 'Azure enterprise cloud growth accelerating (+29% YoY) with Copilot commercial seat monetization and $75B+ annual free cash flow.',
+      catalyst: 'Enterprise Office 365 Copilot AI add-on adoption driving ARPU expansion.',
+      riskHorizon: 'Low'
+    },
+    description: 'Microsoft Corporation develops and supports software, services, devices and solutions including Azure Cloud, Microsoft 365, Windows, GitHub, LinkedIn, and gaming.',
+    fairValue: {
+      consensusValue: 490.00,
+      upsidePercent: 15.98,
+      uncertainty: 'Low',
+      analystTarget: 495.00,
+      analystUpsidePercent: 17.16,
+      analystCount: 52,
+      modelsCount: 14,
+      models: [
+        { id: 'm1', name: '5Y DCF (Terminal Growth 3.5%)', category: 'DCF', value: 498.00, weight: 30, description: 'Discounted cash flow factoring 15% Azure revenue expansion at 8.5% WACC.' },
+        { id: 'm2', name: 'EV / Forward EBITDA Multiple (23x)', category: 'Multiples', value: 485.00, weight: 40, description: 'Premium enterprise software multiple.' },
+        { id: 'm3', name: 'Price / Free Cash Flow Multiple', category: 'Multiples', value: 487.00, weight: 30, description: 'Cash flow capitalization.' }
+      ]
+    },
+    healthScore: {
+      totalScore: 4.8,
+      status: 'Great',
+      percentileRank: 98,
+      pillars: {
+        profitability: { name: 'Profitability Health', score: 4.9, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Operating Margin', value: '44.6%', benchmark: 'Top 1% Global Tech', status: 'positive' }] },
+        growth: { name: 'Growth Health', score: 4.7, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Azure Cloud Growth YoY', value: '+29.0%', benchmark: 'Industry Outperformance', status: 'positive' }] },
+        cashFlow: { name: 'Cash Flow Health', score: 5.0, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Free Cash Flow', value: '$74.1 Billion', benchmark: 'Fortress Treasury', status: 'positive' }] },
+        momentum: { name: 'Price Momentum', score: 4.2, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: '200-DMA Support', value: '$418.00', benchmark: 'Above Long-Term Moving Average', status: 'positive' }] },
+        relativeValue: { name: 'Relative Valuation', score: 4.2, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Forward P/E', value: '27.4x', benchmark: 'Attractive vs 5Y High', status: 'positive' }] }
+      }
+    },
+    proTips: [
+      { id: 'ms1', type: 'bull', title: 'Dominant Enterprise Hybrid Cloud Infrastructure', description: 'Azure is capturing largest net-new enterprise AI workloads globally.', badge: 'Cloud Leader' },
+      { id: 'ms2', type: 'bull', title: 'AAA Credit Rating Balance Sheet', description: 'One of only two US corporations holding a pristine S&P AAA credit rating.', badge: 'AAA Fortress' }
+    ],
+    financials: {
+      years: ['2020', '2021', '2022', '2023', '2024', '2025 (TTM)'],
+      revenue: [143.0, 168.1, 198.3, 211.9, 245.1, 268.0],
+      grossProfit: [96.9, 115.9, 135.6, 146.1, 170.7, 187.0],
+      operatingIncome: [53.0, 69.9, 83.4, 88.5, 109.4, 120.0],
+      netIncome: [44.3, 61.3, 72.7, 72.4, 88.1, 96.5],
+      freeCashFlow: [45.2, 56.1, 65.1, 59.5, 74.1, 80.5],
+      totalCash: [136.5, 130.3, 104.8, 111.3, 75.5, 82.0],
+      totalDebt: [70.0, 67.8, 61.2, 59.9, 58.0, 52.0],
+      roic: [23.1, 29.8, 32.5, 30.1, 34.8, 36.5],
+      operatingMargin: [37.0, 41.6, 42.1, 41.8, 44.6, 44.8],
+      sharesOutstanding: [7.61, 7.55, 7.46, 7.43, 7.42, 7.40]
+    }
+  },
+
   GOOGL: {
     ticker: 'GOOGL',
     name: 'Alphabet Inc.',
     sector: 'Technology',
     industry: 'Internet Content & Search',
     market: 'US',
-    price: 182.40,
-    change: 1.95,
-    changePercent: 1.08,
-    marketCap: '$2.24 Trillion',
-    pe: 22.4,
-    forwardPE: 18.9,
+    price: 180.20,
+    change: 1.45,
+    changePercent: 0.81,
+    marketCap: '$2.21 Trillion',
+    pe: 22.1,
+    forwardPE: 18.6,
     eps: 8.14,
     dividendYield: 0.44,
     beta: 1.05,
     fiftyTwoWeekHigh: 193.31,
     fiftyTwoWeekLow: 130.67,
-    volume: '28.1M',
+    volume: '26.4M',
     avgVolume: '26.4M',
     exchange: 'NASDAQ',
     currency: 'USD',
@@ -285,25 +363,25 @@ export const STOCKS_DATA: Record<string, Stock> = {
     monthlySignal: {
       action: 'STRONG BUY',
       ratingScore: 9.6,
-      targetEntryRange: '$175 - $185',
+      targetEntryRange: '$174 - $182',
       fairValueTarget: '$224.50',
       stopLoss: '$162.00',
-      primaryRationale: 'Deepest valuation discount in Magnificent 7 (Forward P/E 18.9x) with accelerating Google Cloud profitability and $70B buybacks.',
+      primaryRationale: 'Deepest valuation discount in Magnificent 7 (Forward P/E 18.6x) with accelerating Google Cloud profitability and $70B buybacks.',
       catalyst: 'Custom TPU v6 scaling & Gemini multimodal enterprise integrations.',
       riskHorizon: 'Low'
     },
     description: 'Alphabet Inc. provides search, advertising, cloud platform (Google Cloud), YouTube, operating systems (Android), and Other Bets breakthroughs.',
     fairValue: {
       consensusValue: 224.50,
-      upsidePercent: 23.08,
+      upsidePercent: 24.58,
       uncertainty: 'Low',
       analystTarget: 215.00,
-      analystUpsidePercent: 17.87,
+      analystUpsidePercent: 19.31,
       analystCount: 48,
       modelsCount: 14,
       models: [
         { id: 'm1', name: '5Y DCF (Terminal Growth 3.0%)', category: 'DCF', value: 231.00, weight: 25, description: 'Discounted cash flow modeling Google Cloud profitability surge.' },
-        { id: 'm2', name: 'P/E Relative to Megacap Peer Group', category: 'Multiples', value: 228.00, weight: 25, description: 'Applies normalized 24x forward multiple vs current 18.9x discount.' }
+        { id: 'm2', name: 'P/E Relative to Megacap Peer Group', category: 'Multiples', value: 228.00, weight: 25, description: 'Applies normalized 24x forward multiple vs current 18.6x discount.' }
       ]
     },
     healthScore: {
@@ -315,11 +393,11 @@ export const STOCKS_DATA: Record<string, Stock> = {
         growth: { name: 'Growth Health', score: 4.6, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Google Cloud Growth YoY', value: '+35.0%', benchmark: 'Industry Top', status: 'positive' }] },
         cashFlow: { name: 'Cash Flow Health', score: 5.0, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Free Cash Flow', value: '$73.2 Billion', benchmark: 'Net Cash Leader', status: 'positive' }] },
         momentum: { name: 'Price Momentum', score: 4.1, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: '50-DMA', value: '$176.50', benchmark: 'Above Trend', status: 'positive' }] },
-        relativeValue: { name: 'Relative Valuation', score: 4.8, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Forward P/E', value: '18.9x', benchmark: 'Lowest in Mag 7', status: 'positive' }] }
+        relativeValue: { name: 'Relative Valuation', score: 4.8, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Forward P/E', value: '18.6x', benchmark: 'Lowest in Mag 7', status: 'positive' }] }
       }
     },
     proTips: [
-      { id: 'gg1', type: 'bull', title: 'Lowest P/E in the Magnificent 7', description: 'Trading at only 18.9x forward earnings despite 30%+ Google Cloud operating income expansion.', badge: 'Deep Value' }
+      { id: 'gg1', type: 'bull', title: 'Lowest P/E in the Magnificent 7', description: 'Trading at only 18.6x forward earnings despite 30%+ Google Cloud operating income expansion.', badge: 'Deep Value' }
     ],
     financials: {
       years: ['2020', '2021', '2022', '2023', '2024', '2025 (TTM)'],
@@ -342,39 +420,39 @@ export const STOCKS_DATA: Record<string, Stock> = {
     sector: 'Consumer Cyclical',
     industry: 'Auto Manufacturers & Energy',
     market: 'US',
-    price: 245.80,
-    change: -2.15,
-    changePercent: -0.87,
-    marketCap: '$785.4 Billion',
-    pe: 92.4,
-    forwardPE: 68.2,
+    price: 238.50,
+    change: -3.40,
+    changePercent: -1.41,
+    marketCap: '$762.1 Billion',
+    pe: 89.6,
+    forwardPE: 66.2,
     eps: 2.66,
     dividendYield: 0.0,
     beta: 2.34,
     fiftyTwoWeekHigh: 271.00,
     fiftyTwoWeekLow: 138.80,
-    volume: '62.8M',
+    volume: '59.8M',
     avgVolume: '74.2M',
     exchange: 'NASDAQ',
     currency: 'USD',
     currencySymbol: '$',
     monthlySignal: {
       action: 'AVOID / DO NOT BUY',
-      ratingScore: 4.2,
+      ratingScore: 4.3,
       targetEntryRange: '$180 - $195',
       fairValueTarget: '$218.40',
       stopLoss: '$220.00',
-      primaryRationale: 'Valuation multiple (P/E 92x) leaves zero margin of safety amid compressed auto gross margins (14.6%) and aggressive China EV price wars.',
+      primaryRationale: 'Valuation multiple (P/E 89x) leaves zero margin of safety amid compressed auto gross margins (14.6%) and aggressive China EV price wars.',
       catalyst: 'Robotaxi regulatory approvals and commercial scale pushed into 2026+.',
       riskHorizon: 'High'
     },
     description: 'Tesla, Inc. designs, manufactures, and sells electric vehicles, energy storage systems, and autonomous driving robotics.',
     fairValue: {
       consensusValue: 218.40,
-      upsidePercent: -11.15,
+      upsidePercent: -8.43,
       uncertainty: 'High',
       analystTarget: 235.00,
-      analystUpsidePercent: -4.39,
+      analystUpsidePercent: -1.47,
       analystCount: 45,
       modelsCount: 12,
       models: [
@@ -391,11 +469,11 @@ export const STOCKS_DATA: Record<string, Stock> = {
         growth: { name: 'Growth Health', score: 3.7, maxScore: 5.0, status: 'Good', keyMetrics: [{ label: 'Energy Storage YoY', value: '+125%', benchmark: 'High growth', status: 'positive' }] },
         cashFlow: { name: 'Cash Flow Health', score: 4.5, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Total Cash', value: '$33.6 Billion', benchmark: 'Zero liquidity risk', status: 'positive' }] },
         momentum: { name: 'Price Momentum', score: 4.2, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: '3M Rebound', value: '+42%', benchmark: 'High retail momentum', status: 'positive' }] },
-        relativeValue: { name: 'Relative Valuation', score: 2.8, maxScore: 5.0, status: 'Weak', keyMetrics: [{ label: 'Trailing P/E', value: '92.4x', benchmark: 'Expensive', status: 'negative' }] }
+        relativeValue: { name: 'Relative Valuation', score: 2.8, maxScore: 5.0, status: 'Weak', keyMetrics: [{ label: 'Trailing P/E', value: '89.6x', benchmark: 'Expensive', status: 'negative' }] }
       }
     },
     proTips: [
-      { id: 'ts3', type: 'bear', title: 'Trading 11% Above Consensus Fair Value', description: 'Quantitative models suggest stock is overvalued on near-term fundamentals without robotaxi scale.', badge: 'Premium Price' }
+      { id: 'ts3', type: 'bear', title: 'Trading Above Consensus Fair Value', description: 'Quantitative models suggest stock is overvalued on near-term fundamentals without robotaxi commercial monetization.', badge: 'Premium Price' }
     ],
     financials: {
       years: ['2020', '2021', '2022', '2023', '2024', '2025 (TTM)'],
@@ -419,14 +497,14 @@ export const STOCKS_DATA: Record<string, Stock> = {
     sector: 'Energy & Conglomerate',
     industry: 'Oil to Chemicals, Retail & Telecom (Jio)',
     market: 'INDIA',
-    price: 1395.50,
-    change: 18.40,
-    changePercent: 1.34,
-    marketCap: '₹18.88 Lakh Crore ($228B)',
-    pe: 26.8,
-    forwardPE: 21.4,
+    price: 1315.00,
+    change: -5.40,
+    changePercent: -0.41,
+    marketCap: '₹17.79 Lakh Crore ($214B)',
+    pe: 25.2,
+    forwardPE: 20.1,
     eps: 52.07,
-    dividendYield: 0.72,
+    dividendYield: 0.76,
     beta: 0.94,
     fiftyTwoWeekHigh: 1608.80,
     fiftyTwoWeekLow: 1210.00,
@@ -437,10 +515,10 @@ export const STOCKS_DATA: Record<string, Stock> = {
     currencySymbol: '₹',
     monthlySignal: {
       action: 'STRONG BUY',
-      ratingScore: 9.5,
-      targetEntryRange: '₹1,360 - ₹1,400',
+      ratingScore: 9.6,
+      targetEntryRange: '₹1,290 - ₹1,330',
       fairValueTarget: '₹1,680.00',
-      stopLoss: '₹1,260.00',
+      stopLoss: '₹1,220.00',
       primaryRationale: 'Dual growth engine of Jio 5G tariff hikes (ARPU expansion) and Reliance Retail store footprint scale-up, backed by robust O2C cash flows.',
       catalyst: 'Anticipated IPO value unlocking for Jio & Reliance Retail in 2025/2026.',
       riskHorizon: 'Low'
@@ -448,10 +526,10 @@ export const STOCKS_DATA: Record<string, Stock> = {
     description: 'Reliance Industries Limited is India’s largest conglomerate by market cap, operating across hydrocarbon exploration, petrochemicals, telecommunications (Jio with 490M+ subscribers), retail, and new clean energy giga-factories.',
     fairValue: {
       consensusValue: 1680.00,
-      upsidePercent: 20.39,
+      upsidePercent: 27.76,
       uncertainty: 'Low',
       analystTarget: 1620.00,
-      analystUpsidePercent: 16.09,
+      analystUpsidePercent: 23.19,
       analystCount: 38,
       modelsCount: 12,
       models: [
@@ -512,7 +590,7 @@ export const STOCKS_DATA: Record<string, Stock> = {
           maxScore: 5.0,
           status: 'Great',
           keyMetrics: [
-            { label: 'Forward P/E', value: '21.4x', benchmark: 'Below 5Y Average of 25.8x', status: 'positive' }
+            { label: 'Forward P/E', value: '20.1x', benchmark: 'Below 5Y Average of 25.8x', status: 'positive' }
           ]
         }
       }
@@ -543,39 +621,39 @@ export const STOCKS_DATA: Record<string, Stock> = {
     sector: 'Technology',
     industry: 'IT Services & Consulting',
     market: 'INDIA',
-    price: 4120.00,
-    change: 32.50,
-    changePercent: 0.79,
-    marketCap: '₹14.91 Lakh Crore ($180B)',
-    pe: 29.5,
-    forwardPE: 25.2,
+    price: 3980.00,
+    change: 18.50,
+    changePercent: 0.47,
+    marketCap: '₹14.40 Lakh Crore ($174B)',
+    pe: 28.5,
+    forwardPE: 24.3,
     eps: 139.66,
-    dividendYield: 2.15,
+    dividendYield: 2.22,
     beta: 0.72,
     fiftyTwoWeekHigh: 4585.00,
     fiftyTwoWeekLow: 3450.00,
-    volume: '2.1M',
+    volume: '2.4M',
     avgVolume: '1.9M',
     exchange: 'NSE',
     currency: 'INR',
     currencySymbol: '₹',
     monthlySignal: {
       action: 'ACCUMULATE',
-      ratingScore: 8.8,
-      targetEntryRange: '₹3,950 - ₹4,100',
+      ratingScore: 8.9,
+      targetEntryRange: '₹3,900 - ₹4,020',
       fairValueTarget: '₹4,720.00',
       stopLoss: '₹3,750.00',
-      primaryRationale: 'Pristine zero-debt balance sheet, industry-leading 24.5% EBIT margins, and highest dividend return payout in Indian IT.',
+      primaryRationale: 'Pristine zero-debt balance sheet, industry-leading 24.6% EBIT margins, and highest dividend return payout in Indian IT.',
       catalyst: 'Rebound in BFSI discretionary cloud transformation and generative AI pipeline deals ($1.5B+ pipeline).',
       riskHorizon: 'Low'
     },
     description: 'Tata Consultancy Services is India’s premier IT services, consulting, and business solutions organization, employing over 600,000 consultants globally.',
     fairValue: {
       consensusValue: 4720.00,
-      upsidePercent: 14.56,
+      upsidePercent: 18.59,
       uncertainty: 'Low',
       analystTarget: 4600.00,
-      analystUpsidePercent: 11.65,
+      analystUpsidePercent: 15.58,
       analystCount: 42,
       modelsCount: 14,
       models: [
@@ -633,7 +711,7 @@ export const STOCKS_DATA: Record<string, Stock> = {
           maxScore: 5.0,
           status: 'Great',
           keyMetrics: [
-            { label: 'Dividend Yield', value: '2.15%', benchmark: 'Safe Cash Compounder', status: 'positive' }
+            { label: 'Dividend Yield', value: '2.22%', benchmark: 'Safe Cash Compounder', status: 'positive' }
           ]
         }
       }
@@ -663,18 +741,18 @@ export const STOCKS_DATA: Record<string, Stock> = {
     sector: 'Financial Services',
     industry: 'Private Banking & Wealth Management',
     market: 'INDIA',
-    price: 1780.00,
-    change: 14.20,
-    changePercent: 0.80,
-    marketCap: '₹13.52 Lakh Crore ($163B)',
-    pe: 19.2,
-    forwardPE: 16.5,
+    price: 1745.00,
+    change: 8.20,
+    changePercent: 0.47,
+    marketCap: '₹13.25 Lakh Crore ($160B)',
+    pe: 18.8,
+    forwardPE: 16.1,
     eps: 92.70,
-    dividendYield: 1.15,
+    dividendYield: 1.18,
     beta: 0.88,
     fiftyTwoWeekHigh: 1820.00,
     fiftyTwoWeekLow: 1363.55,
-    volume: '14.2M',
+    volume: '15.1M',
     avgVolume: '16.5M',
     exchange: 'NSE',
     currency: 'INR',
@@ -682,20 +760,20 @@ export const STOCKS_DATA: Record<string, Stock> = {
     monthlySignal: {
       action: 'STRONG BUY',
       ratingScore: 9.7,
-      targetEntryRange: '₹1,720 - ₹1,780',
+      targetEntryRange: '₹1,710 - ₹1,760',
       fairValueTarget: '₹2,180.00',
       stopLoss: '₹1,580.00',
-      primaryRationale: 'Post-merger credit-deposit ratio normalizing, loan book growth stabilizing above 15% YoY, and valuation at 10-year low P/B of 2.4x.',
+      primaryRationale: 'Post-merger credit-deposit ratio normalizing, loan book growth stabilizing above 15% YoY, and valuation at 10-year low P/B of 2.38x.',
       catalyst: 'Deposit repricing cycle peaking and margin expansion across 8,800+ branch network.',
       riskHorizon: 'Low'
     },
     description: 'HDFC Bank is India’s largest private sector bank following its historic mega-merger with HDFC Ltd., commanding over 22% of total national credit and mortgage disbursements.',
     fairValue: {
       consensusValue: 2180.00,
-      upsidePercent: 22.47,
+      upsidePercent: 24.93,
       uncertainty: 'Low',
       analystTarget: 2100.00,
-      analystUpsidePercent: 17.98,
+      analystUpsidePercent: 20.34,
       analystCount: 46,
       modelsCount: 12,
       models: [
@@ -713,11 +791,11 @@ export const STOCKS_DATA: Record<string, Stock> = {
         growth: { name: 'Growth Health', score: 4.7, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Advances Growth YoY', value: '+16.5%', benchmark: 'Strong Retail & SME', status: 'positive' }] },
         cashFlow: { name: 'Cash Flow Health', score: 4.9, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Gross NPA (Bad Loans)', value: '1.24%', benchmark: 'Best-in-Class Asset Quality', status: 'positive' }] },
         momentum: { name: 'Price Momentum', score: 4.3, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Price vs 200-DMA', value: '+11.2%', benchmark: 'Multi-month breakout', status: 'positive' }] },
-        relativeValue: { name: 'Relative Valuation', score: 4.9, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Price / Book', value: '2.42x', benchmark: '10-Year Valuation Low', status: 'positive' }] }
+        relativeValue: { name: 'Relative Valuation', score: 4.9, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Price / Book', value: '2.38x', benchmark: '10-Year Valuation Low', status: 'positive' }] }
       }
     },
     proTips: [
-      { id: 'hdfc1', type: 'bull', title: '10-Year Low Valuation Entry Point', description: 'Trading at only 2.42x book value compared to its 10-year historical average of 3.6x.', badge: 'Generational Value' },
+      { id: 'hdfc1', type: 'bull', title: '10-Year Low Valuation Entry Point', description: 'Trading at only 2.38x book value compared to its 10-year historical average of 3.6x.', badge: 'Generational Value' },
       { id: 'hdfc2', type: 'bull', title: 'Unshakable Asset Quality & Low NPAs', description: 'Net NPA below 0.35% with high 74% provision coverage ratio.', badge: 'Fortress Bank' }
     ],
     financials: {
@@ -741,26 +819,26 @@ export const STOCKS_DATA: Record<string, Stock> = {
     sector: 'Technology',
     industry: 'IT Consulting & Enterprise Cloud',
     market: 'INDIA',
-    price: 1890.00,
-    change: 18.50,
-    changePercent: 0.99,
-    marketCap: '₹7.84 Lakh Crore ($94B)',
-    pe: 28.2,
-    forwardPE: 23.5,
+    price: 1840.00,
+    change: 12.40,
+    changePercent: 0.68,
+    marketCap: '₹7.63 Lakh Crore ($92B)',
+    pe: 27.4,
+    forwardPE: 22.8,
     eps: 67.02,
-    dividendYield: 2.38,
+    dividendYield: 2.45,
     beta: 0.85,
     fiftyTwoWeekHigh: 1990.00,
     fiftyTwoWeekLow: 1358.35,
-    volume: '4.8M',
+    volume: '4.9M',
     avgVolume: '5.2M',
     exchange: 'NSE',
     currency: 'INR',
     currencySymbol: '₹',
     monthlySignal: {
       action: 'ACCUMULATE',
-      ratingScore: 8.6,
-      targetEntryRange: '₹1,820 - ₹1,890',
+      ratingScore: 8.7,
+      targetEntryRange: '₹1,780 - ₹1,850',
       fairValueTarget: '₹2,150.00',
       stopLoss: '₹1,710.00',
       primaryRationale: 'Large deal wins ($4.5B/quarter) and strong generative AI Topaz platform scaling with 21.5% EBIT margins.',
@@ -770,10 +848,10 @@ export const STOCKS_DATA: Record<string, Stock> = {
     description: 'Infosys Limited is a global leader in next-generation digital services and consulting, providing Topaz AI and Cobalt cloud platforms.',
     fairValue: {
       consensusValue: 2150.00,
-      upsidePercent: 13.76,
+      upsidePercent: 16.85,
       uncertainty: 'Low',
       analystTarget: 2080.00,
-      analystUpsidePercent: 10.05,
+      analystUpsidePercent: 13.04,
       analystCount: 40,
       modelsCount: 12,
       models: [
@@ -790,7 +868,7 @@ export const STOCKS_DATA: Record<string, Stock> = {
         growth: { name: 'Growth Health', score: 4.4, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Constant Currency Growth', value: '+7.2%', benchmark: 'Improving', status: 'positive' }] },
         cashFlow: { name: 'Cash Flow Health', score: 4.9, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Zero Debt Status', value: 'Net Cash ₹32,000 Cr', benchmark: 'Zero Debt', status: 'positive' }] },
         momentum: { name: 'Price Momentum', score: 4.4, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: '52W Range', value: 'Near Highs', benchmark: 'Bullish Continuation', status: 'positive' }] },
-        relativeValue: { name: 'Relative Valuation', score: 4.2, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Dividend Yield', value: '2.38%', benchmark: 'Solid Yield', status: 'positive' }] }
+        relativeValue: { name: 'Relative Valuation', score: 4.2, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'Dividend Yield', value: '2.45%', benchmark: 'Solid Yield', status: 'positive' }] }
       }
     },
     proTips: [
@@ -817,39 +895,39 @@ export const STOCKS_DATA: Record<string, Stock> = {
     sector: 'Consumer Cyclical',
     industry: 'Automotive & Commercial Vehicles',
     market: 'INDIA',
-    price: 980.00,
-    change: -12.40,
-    changePercent: -1.25,
-    marketCap: '₹3.60 Lakh Crore ($43B)',
-    pe: 10.4,
-    forwardPE: 8.8,
+    price: 930.00,
+    change: -8.50,
+    changePercent: -0.91,
+    marketCap: '₹3.42 Lakh Crore ($41B)',
+    pe: 9.8,
+    forwardPE: 8.3,
     eps: 94.20,
-    dividendYield: 0.82,
+    dividendYield: 0.86,
     beta: 1.42,
     fiftyTwoWeekHigh: 1179.00,
     fiftyTwoWeekLow: 680.00,
-    volume: '6.2M',
+    volume: '6.9M',
     avgVolume: '8.1M',
     exchange: 'NSE',
     currency: 'INR',
     currencySymbol: '₹',
     monthlySignal: {
-      action: 'HOLD',
-      ratingScore: 7.2,
-      targetEntryRange: '₹880 - ₹940',
+      action: 'ACCUMULATE',
+      ratingScore: 8.1,
+      targetEntryRange: '₹890 - ₹940',
       fairValueTarget: '₹1,080.00',
       stopLoss: '₹850.00',
-      primaryRationale: 'JLR (Jaguar Land Rover) net debt reduction achieved, but near-term European luxury auto demand softening and UK plant transition.',
+      primaryRationale: 'Pullback offers attractive entry into JLR net debt elimination and 68% domestic EV market share ahead of entity demerger.',
       catalyst: 'Demerger of Commercial Vehicles and Passenger EV entities in late 2025.',
       riskHorizon: 'Medium'
     },
     description: 'Tata Motors is a leading global automobile manufacturer producing passenger cars, commercial heavy trucks, electric vehicles, and Jaguar Land Rover luxury SUVs.',
     fairValue: {
       consensusValue: 1080.00,
-      upsidePercent: 10.20,
+      upsidePercent: 16.13,
       uncertainty: 'Medium',
       analystTarget: 1120.00,
-      analystUpsidePercent: 14.28,
+      analystUpsidePercent: 20.43,
       analystCount: 32,
       modelsCount: 10,
       models: [
@@ -866,7 +944,7 @@ export const STOCKS_DATA: Record<string, Stock> = {
         growth: { name: 'Growth Health', score: 4.3, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'India EV Market Share', value: '68%', benchmark: 'Dominant Leader', status: 'positive' }] },
         cashFlow: { name: 'Cash Flow Health', score: 4.1, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'JLR Net Cash Goal', value: 'Net Cash £1.0B by FY25', benchmark: 'Deleveraging', status: 'positive' }] },
         momentum: { name: 'Price Momentum', score: 3.8, maxScore: 5.0, status: 'Good', keyMetrics: [{ label: 'Consolidating', value: 'Pullback from ₹1,179', benchmark: 'Rangebound', status: 'neutral' }] },
-        relativeValue: { name: 'Relative Valuation', score: 4.5, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'P/E Multiple', value: '10.4x', benchmark: 'Single digit forward', status: 'positive' }] }
+        relativeValue: { name: 'Relative Valuation', score: 4.5, maxScore: 5.0, status: 'Great', keyMetrics: [{ label: 'P/E Multiple', value: '9.8x', benchmark: 'Single digit forward', status: 'positive' }] }
       }
     },
     proTips: [
@@ -894,10 +972,10 @@ export const STOCKS_DATA: Record<string, Stock> = {
     sector: 'Financial Technology',
     industry: 'Digital Payments & Lending',
     market: 'INDIA',
-    price: 685.00,
-    change: -18.20,
-    changePercent: -2.58,
-    marketCap: '₹43,500 Crore ($5.2B)',
+    price: 670.00,
+    change: -12.40,
+    changePercent: -1.82,
+    marketCap: '₹42,500 Crore ($5.1B)',
     pe: -38.5,
     forwardPE: -28.0,
     eps: -17.80,
@@ -923,10 +1001,10 @@ export const STOCKS_DATA: Record<string, Stock> = {
     description: 'One97 Communications operates Paytm, an Indian digital financial services platform providing UPI merchant soundboxes, QR payments, and loan distribution.',
     fairValue: {
       consensusValue: 540.00,
-      upsidePercent: -21.17,
+      upsidePercent: -19.40,
       uncertainty: 'High',
       analystTarget: 610.00,
-      analystUpsidePercent: -10.95,
+      analystUpsidePercent: -8.96,
       analystCount: 18,
       modelsCount: 8,
       models: [
@@ -942,12 +1020,12 @@ export const STOCKS_DATA: Record<string, Stock> = {
         profitability: { name: 'Profitability Health', score: 2.2, maxScore: 5.0, status: 'Weak', keyMetrics: [{ label: 'Net Profit Margin', value: '-18.5%', benchmark: 'GAAP Unprofitable', status: 'negative' }] },
         growth: { name: 'Growth Health', score: 3.2, maxScore: 5.0, status: 'Average', keyMetrics: [{ label: 'Merchant Subscription Devices', value: '1.08 Crore', benchmark: 'Soundbox Moat', status: 'positive' }] },
         cashFlow: { name: 'Cash Flow Health', score: 3.8, maxScore: 5.0, status: 'Good', keyMetrics: [{ label: 'Cash Reserves', value: '₹7,800 Crore', benchmark: 'Sufficient Runway', status: 'positive' }] },
-        momentum: { name: 'Price Momentum', score: 2.6, maxScore: 5.0, status: 'Weak', keyMetrics: [{ label: 'Down -68% from IPO', value: '₹685 vs ₹2,150 IPO', benchmark: 'Underperforming', status: 'negative' }] },
+        momentum: { name: 'Price Momentum', score: 2.6, maxScore: 5.0, status: 'Weak', keyMetrics: [{ label: 'Down -68% from IPO', value: '₹670 vs ₹2,150 IPO', benchmark: 'Underperforming', status: 'negative' }] },
         relativeValue: { name: 'Relative Valuation', score: 2.2, maxScore: 5.0, status: 'Weak', keyMetrics: [{ label: 'GAAP P/E', value: 'Negative (Losses)', benchmark: 'No EPS Support', status: 'negative' }] }
       }
     },
     proTips: [
-      { id: 'pay1', type: 'bear', title: 'Trading 21% Above Fair Value Consensus', description: 'Quantitative models indicate price exceeds underlying cash flow generation without banking license restoration.', badge: 'Overpriced' },
+      { id: 'pay1', type: 'bear', title: 'Trading Above Fair Value Consensus', description: 'Quantitative models indicate price exceeds underlying cash flow generation without banking license restoration.', badge: 'Overpriced' },
       { id: 'pay2', type: 'bear', title: 'Severe Regulatory Scrutiny', description: 'RBI restrictions on payments bank unit required merchant migration to third-party bank escrows.', badge: 'Regulatory' }
     ],
     financials: {
