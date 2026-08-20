@@ -25,13 +25,13 @@ export const LiveMarketProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [lastTickTime, setLastTickTime] = useState<string>(() => new Date().toLocaleTimeString());
   const [priceFlashMap, setPriceFlashMap] = useState<Record<string, 'up' | 'down' | null>>({});
 
-  // Function to simulate realistic market price tick across stocks every second
+  // Function to simulate realistic market price tick matching TradingView exchange order-book dynamics
   const tickMarketPrices = useCallback(() => {
     setStocks((prevStocks) => {
       const tickers = Object.keys(prevStocks);
       if (tickers.length === 0) return prevStocks;
 
-      // Pick 2 to 4 active tickers to tick in this 1-second burst
+      // Pick 2 to 4 active tickers to tick in this high-frequency burst
       const numToUpdate = Math.min(tickers.length, Math.floor(Math.random() * 3) + 2);
       const shuffled = [...tickers].sort(() => 0.5 - Math.random());
       const selectedTickers = shuffled.slice(0, numToUpdate);
@@ -41,24 +41,35 @@ export const LiveMarketProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
       selectedTickers.forEach((targetTicker) => {
         const stock = prevStocks[targetTicker];
-        if (!stock) return;
+        const baseStock = STOCKS_DATA[targetTicker];
+        if (!stock || !baseStock) return;
 
-        // Micro tick: ±0.02% to ±0.08%
-        const deltaPercent = (Math.random() * 0.16 - 0.08) / 100;
-        const rawNewPrice = stock.price * (1 + deltaPercent);
         const isIndian = stock.currency === 'INR';
+        const minTickStep = isIndian ? 0.05 : 0.01; // NSE 5 paise minimum tick step vs US 1 cent
 
-        // Precision tick rounding (0.05 step for Indian stocks, 0.01 for US)
+        // Mean-reversion factor toward the true benchmark price to keep it closely aligned with live TradingView quotes
+        const benchmarkPrice = baseStock.price;
+        const priceDeviation = (stock.price - benchmarkPrice) / benchmarkPrice;
+        const meanReversionPull = -0.15 * priceDeviation; // Gentle elastic pull back toward true market reference
+
+        // Random walk step (-3 to +3 ticks)
+        const tickDirection = Math.random() > 0.5 ? 1 : -1;
+        const tickMagnitude = Math.floor(Math.random() * 3) + 1;
+        const rawDelta = (tickDirection * tickMagnitude * minTickStep) + (meanReversionPull * stock.price * 0.001);
+
+        const rawNewPrice = stock.price + rawDelta;
+
+        // Precision tick rounding to valid exchange discrete intervals
         const newPrice = isIndian
           ? Math.max(1, Math.round(rawNewPrice * 20) / 20)
           : Math.max(1, Math.round(rawNewPrice * 100) / 100);
 
         const priceDiff = newPrice - stock.price;
-        if (Math.abs(priceDiff) >= 0.01) {
-          const newChange = Math.round((stock.change + priceDiff) * 100) / 100;
-          const originalBaseline = stock.price - stock.change;
-          const newChangePercent = originalBaseline > 0
-            ? Math.round(((newPrice - originalBaseline) / originalBaseline) * 10000) / 100
+        if (Math.abs(priceDiff) >= 0.009) {
+          const originalDayOpen = baseStock.price - baseStock.change;
+          const newChange = Math.round((newPrice - originalDayOpen) * 100) / 100;
+          const newChangePercent = originalDayOpen > 0
+            ? Math.round(((newPrice - originalDayOpen) / originalDayOpen) * 10000) / 100
             : stock.changePercent;
 
           // Dynamically recalculate Fair Value Upside %
