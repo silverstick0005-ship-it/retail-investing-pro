@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GURU_PORTFOLIOS } from '../data/guruData';
 import { GuruPortfolio } from '../types';
+import { useLiveMarket } from '../context/LiveMarketContext';
 import { Star, TrendingUp, DollarSign, PieChart, ArrowUpRight, ArrowDownRight, Layers, FileText, ChevronRight } from 'lucide-react';
 
 interface GuruPortfoliosViewProps {
@@ -8,6 +9,7 @@ interface GuruPortfoliosViewProps {
 }
 
 export const GuruPortfoliosView: React.FC<GuruPortfoliosViewProps> = ({ onSelectTicker }) => {
+  const { stocks: liveStocks } = useLiveMarket();
   const [selectedGuruId, setSelectedGuruId] = useState<string>('warren-buffett');
 
   const currentGuru = GURU_PORTFOLIOS.find((g) => g.id === selectedGuruId) || GURU_PORTFOLIOS[0];
@@ -220,7 +222,7 @@ export const GuruPortfoliosView: React.FC<GuruPortfoliosViewProps> = ({ onSelect
                     </span>
                   </td>
                   <td className="py-3.5 px-3 text-right font-bold text-[#10b981]">
-                    +{holding.fairValueUpside.toFixed(1)}%
+                    +{((liveStocks[holding.ticker]?.fairValue?.upsidePercent) ?? holding.fairValueUpside).toFixed(1)}%
                   </td>
                   <td className="py-3.5 px-4 text-right">
                     <button className="text-zinc-400 group-hover:text-white p-1 rounded hover:bg-white/10">

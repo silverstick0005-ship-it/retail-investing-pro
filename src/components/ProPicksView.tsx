@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { PRO_PICKS_STRATEGIES } from '../data/proPicksData';
 import { ProPickStrategy } from '../types';
-import { Sparkles, TrendingUp, Award, Calendar, CheckCircle2, ArrowUpRight, BarChart2, ShieldCheck, Flame, ChevronRight } from 'lucide-react';
+import { useLiveMarket } from '../context/LiveMarketContext';
+import { Sparkles, TrendingUp, Award, Calendar, CheckCircle2, ArrowUpRight, BarChart2, ShieldCheck, Flame, ChevronRight, Activity } from 'lucide-react';
 
 interface ProPicksViewProps {
   onSelectTicker: (ticker: string) => void;
 }
 
 export const ProPicksView: React.FC<ProPicksViewProps> = ({ onSelectTicker }) => {
+  const { stocks: liveStocks } = useLiveMarket();
   const [selectedStrategyId, setSelectedStrategyId] = useState<string>('tech-titans');
 
   const currentStrategy = PRO_PICKS_STRATEGIES.find((s) => s.id === selectedStrategyId) || PRO_PICKS_STRATEGIES[0];
@@ -238,7 +240,13 @@ export const ProPicksView: React.FC<ProPicksViewProps> = ({ onSelectTicker }) =>
             </thead>
             <tbody className="divide-y divide-white/5 font-mono-code">
               {currentStrategy.holdings.map((h) => {
-                const isGainPos = h.gainPercent >= 0;
+                const live = liveStocks[h.ticker];
+                const curPrice = live?.price ?? h.currentPrice;
+                const sym = live?.currencySymbol ?? (h.ticker === 'HDFCBANK' || h.ticker === 'RELIANCE' || h.ticker === 'TCS' || h.ticker === 'INFY' || h.ticker === 'TATAMOTORS' || h.ticker === 'PAYTM' ? '₹' : '$');
+                const calculatedGain = ((curPrice - h.entryPrice) / h.entryPrice) * 100;
+                const isGainPos = calculatedGain >= 0;
+                const liveUpside = live?.fairValue?.upsidePercent ?? h.fairValueUpside;
+
                 return (
                   <tr
                     key={h.ticker}
@@ -251,31 +259,31 @@ export const ProPicksView: React.FC<ProPicksViewProps> = ({ onSelectTicker }) =>
                           {h.ticker}
                         </span>
                         <span className="font-sans text-zinc-400 text-xs truncate max-w-[140px]">
-                          {h.name}
+                          {live?.name || h.name}
                         </span>
                       </div>
                     </td>
                     <td className="py-3.5 px-3 font-sans text-zinc-400">
-                      {h.sector}
+                      {live?.sector || h.sector}
                     </td>
                     <td className="py-3.5 px-3 text-right text-zinc-200">
                       {h.weight.toFixed(1)}%
                     </td>
                     <td className="py-3.5 px-3 text-right text-zinc-400">
-                      ${h.entryPrice.toFixed(2)}
+                      {sym}{h.entryPrice.toFixed(2)}
                     </td>
                     <td className="py-3.5 px-3 text-right text-white font-bold">
-                      ${h.currentPrice.toFixed(2)}
+                      {sym}{curPrice.toFixed(2)}
                     </td>
                     <td className={`py-3.5 px-3 text-right font-bold ${isGainPos ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
-                      {isGainPos ? '+' : ''}{h.gainPercent.toFixed(1)}%
+                      {isGainPos ? '+' : ''}{calculatedGain.toFixed(1)}%
                     </td>
                     <td className="py-3.5 px-3 text-right text-[#d4af37] font-bold">
-                      +{h.fairValueUpside.toFixed(1)}%
+                      +{liveUpside.toFixed(1)}%
                     </td>
                     <td className="py-3.5 px-3 text-right">
                       <span className="px-2 py-0.5 rounded bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/30 text-[10px] font-bold">
-                        {h.healthScore.toFixed(1)}/5.0
+                        {(live?.healthScore?.totalScore || h.healthScore).toFixed(1)}/5.0
                       </span>
                     </td>
                     <td className="py-3.5 px-4 text-right">

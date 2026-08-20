@@ -10,9 +10,19 @@ export const AIAnalystView: React.FC<AIAnalystViewProps> = ({ stock }) => {
   const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant'; text: string }>>([
     {
       role: 'assistant',
-      text: `Hello! I am your **Retail Investing AI Research Analyst** (powered by Gemini & institutional quantitative feeds).\n\nCurrently evaluating **${stock.name} (${stock.ticker})**.\n- Market Price: **$${stock.price.toFixed(2)}**\n- Retail Fair Value™: **$${stock.fairValue.consensusValue.toFixed(2)}** (${stock.fairValue.upsidePercent >= 0 ? '+' : ''}${stock.fairValue.upsidePercent.toFixed(1)}% Implied Upside)\n- Health Rating: **${stock.healthScore.totalScore}/5.0 (${stock.healthScore.status})**\n\nAsk me about economic moats, DCF sensitivity, margin durability, or click one of the quick prompts below!`
+      text: `Hello! I am your **Retail Investing AI Research Analyst** (powered by Gemini & institutional quantitative feeds).\n\nCurrently evaluating **${stock.name} (${stock.ticker})**.\n- Market Price: **${stock.currencySymbol}${stock.price.toFixed(2)}**\n- Retail Fair Value™: **${stock.currencySymbol}${stock.fairValue.consensusValue.toFixed(2)}** (${stock.fairValue.upsidePercent >= 0 ? '+' : ''}${stock.fairValue.upsidePercent.toFixed(1)}% Implied Upside)\n- Health Rating: **${stock.healthScore.totalScore}/5.0 (${stock.healthScore.status})**\n\nAsk me about economic moats, DCF sensitivity, margin durability, or click one of the quick prompts below!`
     }
   ]);
+
+  // Keep assistant message in sync when user switches stock
+  React.useEffect(() => {
+    setMessages([
+      {
+        role: 'assistant',
+        text: `Hello! I am your **Retail Investing AI Research Analyst** (powered by Gemini & institutional quantitative feeds).\n\nCurrently evaluating **${stock.name} (${stock.ticker})**.\n- Market Price: **${stock.currencySymbol}${stock.price.toFixed(2)}**\n- Retail Fair Value™: **${stock.currencySymbol}${stock.fairValue.consensusValue.toFixed(2)}** (${stock.fairValue.upsidePercent >= 0 ? '+' : ''}${stock.fairValue.upsidePercent.toFixed(1)}% Implied Upside)\n- Health Rating: **${stock.healthScore.totalScore}/5.0 (${stock.healthScore.status})**\n\nAsk me about economic moats, DCF sensitivity, margin durability, or click one of the quick prompts below!`
+      }
+    ]);
+  }, [stock.ticker]);
   const [inputQuery, setInputQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 

@@ -10,6 +10,7 @@ interface LiveMarketContextType {
   lastUpdatedTicker: string | null;
   lastTickTime: string;
   refreshAllPrices: () => void;
+  priceFlashMap: Record<string, 'up' | 'down' | null>;
 }
 
 const LiveMarketContext = createContext<LiveMarketContextType | undefined>(undefined);
@@ -20,83 +21,98 @@ export const LiveMarketProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     return JSON.parse(JSON.stringify(STOCKS_DATA));
   });
   const [isLiveStreaming, setIsLiveStreaming] = useState<boolean>(true);
-  const [lastUpdatedTicker, setLastUpdatedTicker] = useState<string | null>('RELIANCE');
+  const [lastUpdatedTicker, setLastUpdatedTicker] = useState<string | null>('HDFCBANK');
   const [lastTickTime, setLastTickTime] = useState<string>(() => new Date().toLocaleTimeString());
+  const [priceFlashMap, setPriceFlashMap] = useState<Record<string, 'up' | 'down' | null>>({});
 
-  // Function to simulate realistic market price tick
-  const tickRandomStock = useCallback(() => {
+  // Function to simulate realistic market price tick across stocks every second
+  const tickMarketPrices = useCallback(() => {
     setStocks((prevStocks) => {
       const tickers = Object.keys(prevStocks);
-      // Pick 1 to 2 random tickers to tick
-      const targetTicker = tickers[Math.floor(Math.random() * tickers.length)];
-      const stock = prevStocks[targetTicker];
-      if (!stock) return prevStocks;
+      if (tickers.length === 0) return prevStocks;
 
-      // Fractional tick: ±0.03% to ±0.15%
-      const deltaPercent = (Math.random() * 0.24 - 0.12) / 100;
-      const rawNewPrice = stock.price * (1 + deltaPercent);
-      const isIndian = stock.currency === 'INR';
-      
-      // Precision formatting
-      const newPrice = isIndian 
-        ? Math.round(rawNewPrice * 20) / 20 // 0.05 step for Indian stocks
-        : Math.round(rawNewPrice * 100) / 100;
+      // Pick 2 to 4 active tickers to tick in this 1-second burst
+      const numToUpdate = Math.min(tickers.length, Math.floor(Math.random() * 3) + 2);
+      const shuffled = [...tickers].sort(() => 0.5 - Math.random());
+      const selectedTickers = shuffled.slice(0, numToUpdate);
 
-      const priceDiff = newPrice - stock.price;
-      if (Math.abs(priceDiff) < 0.01) return prevStocks;
+      const updatedStocks = { ...prevStocks };
+      const newFlashMap: Record<string, 'up' | 'down' | null> = {};
 
-      const newChange = Math.round((stock.change + priceDiff) * 100) / 100;
-      const originalBaseline = stock.price - stock.change;
-      const newChangePercent = originalBaseline > 0 
-        ? Math.round(((newPrice - originalBaseline) / originalBaseline) * 10000) / 100 
-        : stock.changePercent;
+      selectedTickers.forEach((targetTicker) => {
+        const stock = prevStocks[targetTicker];
+        if (!stock) return;
 
-      // Recalculate dynamic DCF Fair Value Upside %
-      const newUpsidePercent = stock.fairValue && stock.fairValue.consensusValue > 0
-        ? Math.round(((stock.fairValue.consensusValue - newPrice) / newPrice) * 10000) / 100
-        : stock.fairValue?.upsidePercent || 0;
+        // Micro tick: ±0.02% to ±0.08%
+        const deltaPercent = (Math.random() * 0.16 - 0.08) / 100;
+        const rawNewPrice = stock.price * (1 + deltaPercent);
+        const isIndian = stock.currency === 'INR';
 
-      const newAnalystUpside = stock.fairValue && stock.fairValue.analystTarget > 0
-        ? Math.round(((stock.fairValue.analystTarget - newPrice) / newPrice) * 10000) / 100
-        : stock.fairValue?.analystUpsidePercent || 0;
+        // Precision tick rounding (0.05 step for Indian stocks, 0.01 for US)
+        const newPrice = isIndian
+          ? Math.max(1, Math.round(rawNewPrice * 20) / 20)
+          : Math.max(1, Math.round(rawNewPrice * 100) / 100);
 
-      setLastUpdatedTicker(targetTicker);
-      setLastTickTime(new Date().toLocaleTimeString());
+        const priceDiff = newPrice - stock.price;
+        if (Math.abs(priceDiff) >= 0.01) {
+          const newChange = Math.round((stock.change + priceDiff) * 100) / 100;
+          const originalBaseline = stock.price - stock.change;
+          const newChangePercent = originalBaseline > 0
+            ? Math.round(((newPrice - originalBaseline) / originalBaseline) * 10000) / 100
+            : stock.changePercent;
 
-      return {
-        ...prevStocks,
-        [targetTicker]: {
-          ...stock,
-          price: newPrice,
-          change: newChange,
-          changePercent: newChangePercent,
-          fairValue: {
-            ...stock.fairValue,
-            upsidePercent: newUpsidePercent,
-            analystUpsidePercent: newAnalystUpside,
-          }
+          // Dynamically recalculate Fair Value Upside %
+          const newUpsidePercent = stock.fairValue && stock.fairValue.consensusValue > 0
+            ? Math.round(((stock.fairValue.consensusValue - newPrice) / newPrice) * 10000) / 100
+            : stock.fairValue?.upsidePercent || 0;
+
+          const newAnalystUpside = stock.fairValue && stock.fairValue.analystTarget > 0
+            ? Math.round(((stock.fairValue.analystTarget - newPrice) / newPrice) * 10000) / 100
+            : stock.fairValue?.analystUpsidePercent || 0;
+
+          newFlashMap[targetTicker] = priceDiff > 0 ? 'up' : 'down';
+
+          updatedStocks[targetTicker] = {
+            ...stock,
+            price: newPrice,
+            change: newChange,
+            changePercent: newChangePercent,
+            fairValue: {
+              ...stock.fairValue,
+              upsidePercent: newUpsidePercent,
+              analystUpsidePercent: newAnalystUpside,
+            }
+          };
         }
-      };
+      });
+
+      if (selectedTickers.length > 0) {
+        setLastUpdatedTicker(selectedTickers[0]);
+      }
+      setLastTickTime(new Date().toLocaleTimeString());
+      setPriceFlashMap((prev) => ({ ...prev, ...newFlashMap }));
+
+      return updatedStocks;
     });
   }, []);
 
-  // Interval timer for second-by-second live streaming
+  // Interval timer updating every 1000ms (every second)
   useEffect(() => {
     if (!isLiveStreaming) return;
 
     const interval = setInterval(() => {
-      tickRandomStock();
-    }, 2200); // Ticks every 2.2 seconds for realistic exchange action
+      tickMarketPrices();
+    }, 1100); // 1.1s realistic high-frequency stream
 
     return () => clearInterval(interval);
-  }, [isLiveStreaming, tickRandomStock]);
+  }, [isLiveStreaming, tickMarketPrices]);
 
   const toggleLiveStream = () => {
     setIsLiveStreaming((prev) => !prev);
   };
 
   const refreshAllPrices = () => {
-    tickRandomStock();
+    tickMarketPrices();
     setLastTickTime(new Date().toLocaleTimeString());
   };
 
@@ -110,6 +126,7 @@ export const LiveMarketProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         lastUpdatedTicker,
         lastTickTime,
         refreshAllPrices,
+        priceFlashMap,
       }}
     >
       {children}

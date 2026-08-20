@@ -18,8 +18,9 @@ export const StockHeader: React.FC<StockHeaderProps> = ({
   onToggleBookmark,
   onSelectTab
 }) => {
-  const { isLiveStreaming, lastTickTime, toggleLiveStream, refreshAllPrices } = useLiveMarket();
+  const { isLiveStreaming, lastTickTime, refreshAllPrices, priceFlashMap } = useLiveMarket();
   const isPos = stock.change >= 0;
+  const currentFlash = priceFlashMap[stock.ticker];
   const fiftyTwoWeekPct = Math.min(
     100,
     Math.max(
@@ -82,7 +83,9 @@ export const StockHeader: React.FC<StockHeaderProps> = ({
               Current Market Price
             </div>
             <div className="flex items-baseline gap-2.5">
-              <span className="text-3xl sm:text-4xl font-mono-code font-bold text-white tracking-tight">
+              <span className={`text-3xl sm:text-4xl font-mono-code font-bold tracking-tight transition-all duration-300 ${
+                currentFlash === 'up' ? 'text-emerald-400 scale-105' : currentFlash === 'down' ? 'text-rose-400 scale-105' : 'text-white'
+              }`}>
                 {stock.currencySymbol}{stock.price.toFixed(2)}
               </span>
               <span
